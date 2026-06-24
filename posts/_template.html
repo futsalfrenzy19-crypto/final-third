@@ -12,6 +12,14 @@
     --amber:#f59e0b; --amber-dim:rgba(245,158,11,0.12);
     --text:#e6edf3; --muted:#8b949e;
   }
+  html[data-theme="light"]{
+    --bg:#fafafa; --card:#ffffff; --border:#e2e2e2;
+    --green:#15803d; --green-dim:rgba(21,128,61,0.08);
+    --red:#b91c1c; --red-dim:rgba(185,28,28,0.08);
+    --amber:#b45309; --amber-dim:rgba(180,83,9,0.08);
+    --text:#1a1a1a; --muted:#5f5f5f;
+  }
+  body{transition:background .15s, color .15s;}
   *{box-sizing:border-box;margin:0;padding:0;}
   body{font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;}
   .wrap{max-width:760px;margin:0 auto;padding:0 24px 60px;}
@@ -57,11 +65,15 @@
   .ratings .col p{font-size:14px;margin-bottom:6px;}
 
   footer{text-align:center;padding:30px 0;color:var(--muted);font-size:13px;border-top:1px solid var(--border);margin-top:30px;}
+  .theme-toggle{background:var(--card);border:1px solid var(--border);color:var(--text);font-size:12.5px;font-weight:600;padding:6px 11px;border-radius:7px;cursor:pointer;}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <header><a class="logo" href="../index.html"><span class="icon">⚽</span> The Final Third</a></header>
+  <header style="display:flex;justify-content:space-between;align-items:center;">
+    <a class="logo" href="../index.html"><span class="icon">⚽</span> The Final Third</a>
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">☀️ Light</button>
+  </header>
 
   <!-- ================= PRE-MATCH SECTION ================= -->
 
@@ -190,5 +202,21 @@
 
   <footer>The Final Third — built with no code, no budget, just analysis.</footer>
 </div>
+<script>
+function applyTheme(t){
+  document.documentElement.setAttribute('data-theme', t);
+  const btn = document.getElementById('themeBtn');
+  if(btn) btn.textContent = t === 'light' ? '🌙 Dark' : '☀️ Light';
+  localStorage.setItem('theme', t);
+}
+function toggleTheme(){
+  const current = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+  applyTheme(current);
+}
+(function(){
+  const saved = localStorage.getItem('theme') || 'dark';
+  applyTheme(saved);
+})();
+</script>
 </body>
 </html>
