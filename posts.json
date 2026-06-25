@@ -1,16 +1,16 @@
 [
-  {
-    "file": "posts/morocco-vs-haiti.html",
-    "tag": "post",
-    "tagLabel": "Full-time",
-    "comp": "World Cup 2026 · Group H",
-    "title": "Morocco vs Haiti - Post-match: prediction vs reality",
-    "summary": "Add your match summary here.",
-    "chips": ["Morocco", "Haiti"],
-    "date": "25 Jun 2026",
-    "readTime": 8,
-    "predicted": "Predicted result ✓",
-    "correct": true
+    {
+  "file": "posts/morocco-vs-haiti.html",
+  "tag": "post",
+  "tagLabel": "Full-time",
+  "comp": "World Cup 2026 · Group C",
+  "title": "Morocco vs Haiti - Post-match: prediction vs reality",
+  "summary": "Morocco 4-2 in a chaotic first half that saw Haiti lead twice, before Morocco's greater quality took over. Saibari's equalizer on the stroke of half-time was the turning point, with Rahimi and Yassine sealing it in the second half. Morocco advance to the Round of 32.",
+  "chips": ["Morocco", "Haiti", "Saibari", "Hakimi", "Rahimi"],
+  "date": "24 Jun 2026",
+  "readTime": 8,
+  "predicted": "Predicted Morocco win ✓",
+  "correct": true
   },
   {
     "file": "posts/scotland-vs-brazil.html",
