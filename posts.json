@@ -1,18 +1,5 @@
 [
-    {
-  "file": "posts/mexico-vs-south-africa.html",
-  "tag": "post",
-  "tagLabel": "Full-time",
-  "comp": "World Cup 2026 · Group A",
-  "title": "Mexico vs South Africa - Post-match: prediction vs reality",
-  "summary": "Mexico 2-0 in a chaotic World Cup opener — three red cards, a 2010 rematch, and Raul Jimenez's first ever World Cup goal. Quinones punished a Sithole error after 9 minutes, Jimenez headed in the second, and the match descended into chaos from there.",
-  "chips": ["Mexico", "South Africa", "Quinones", "Jimenez", "Sithole"],
-  "date": "11 Jun 2026",
-  "readTime": 10,
-  "predicted": "Predicted Mexico win ✓",
-  "correct": true
-},
-    {
+      {
   "file": "posts/morocco-vs-haiti.html",
   "tag": "post",
   "tagLabel": "Full-time",
@@ -37,5 +24,83 @@
     "readTime": 8,
     "predicted": "Predicted 2-0, actual 3-0 ✓",
     "correct": true
-  }
+  },
+    {
+  "file": "posts/france-vs-senegal.html",
+  "tag": "post",
+  "tagLabel": "Full-time",
+  "comp": "World Cup 2026 · Group I",
+  "title": "France vs Senegal - Post-match: prediction vs reality",
+  "summary": "France 3-1 after a dire first half, then total transformation. Mbappe broke two records in one night — France's all-time scorer (58 goals) and equaling Fontaine's French World Cup record (14). Olise's half-time positional switch was the tactical fix that unlocked everything.",
+  "chips": ["France", "Senegal", "Mbappe", "Olise", "Barcola"],
+  "date": "16 Jun 2026",
+  "readTime": 10,
+  "predicted": "Predicted France win ✓",
+  "correct": true
+},
+{
+  "file": "posts/argentina-vs-algeria.html",
+  "tag": "post",
+  "tagLabel": "Full-time",
+  "comp": "World Cup 2026 · Group J",
+  "title": "Argentina vs Algeria - Post-match: prediction vs reality",
+  "summary": "Argentina 3-0, but the result is secondary. Messi's first-ever World Cup hat-trick on his 200th cap, exactly 20 years after his debut, equaled Klose's all-time scoring record of 16. There is no version of this analysis that isn't about him.",
+  "chips": ["Argentina", "Algeria", "Messi", "Mac Allister"],
+  "date": "16 Jun 2026",
+  "readTime": 10,
+  "predicted": "Predicted Argentina win ✓",
+  "correct": true
+},
+{
+  "file": "posts/spain-vs-cape-verde.html",
+  "tag": "post",
+  "tagLabel": "Full-time",
+  "comp": "World Cup 2026 · Group H",
+  "title": "Spain vs Cape Verde - Post-match: prediction vs reality",
+  "summary": "One of the biggest shocks in World Cup history — Spain 0-0 Cape Verde. The reigning European champions had 27 shots and couldn't score, thanks to 40-year-old goalkeeper Vozinha producing a perfect 7-save performance on the biggest stage of his career.",
+  "chips": ["Spain", "Cape Verde", "Vozinha", "Torres", "Pedri"],
+  "date": "15 Jun 2026",
+  "readTime": 9,
+  "predicted": "Predicted Spain win ✗",
+  "correct": false
+},
+{
+  "file": "posts/germany-vs-curacao.html",
+  "tag": "post",
+  "tagLabel": "Full-time",
+  "comp": "World Cup 2026 · Group E",
+  "title": "Germany vs Curacao - Post-match: prediction vs reality",
+  "summary": "Germany 7-1 in an emphatic opener, but the headline belonged to Curacao — the smallest nation in World Cup history scored their first-ever World Cup goal through Comenencia, sending their fans into delirium even as the scoreline turned heavy.",
+  "chips": ["Germany", "Curacao", "Undav", "Havertz", "Comenencia"],
+  "date": "14 Jun 2026",
+  "readTime": 9,
+  "predicted": "Predicted Germany win ✓",
+  "correct": true
+},
+{
+  "file": "posts/brazil-vs-morocco.html",
+  "tag": "post",
+  "tagLabel": "Full-time",
+  "comp": "World Cup 2026 · Group C",
+  "title": "Brazil vs Morocco - Post-match: prediction vs reality",
+  "summary": "Brazil 1-1 Morocco in a genuinely even contest. Saibari chipped Alisson after 21 minutes, Vinicius Jr struck back with individual brilliance on his 50th cap, and Alisson's stoppage-time double save prevented a Moroccan upset. Saibari registered 100 pressures — the tournament's joint highest.",
+  "chips": ["Brazil", "Morocco", "Saibari", "Vinicius Jr", "Alisson"],
+  "date": "13 Jun 2026",
+  "readTime": 9,
+  "predicted": "Predicted Brazil win ✗",
+  "correct": false
+},
+    {
+  "file": "posts/mexico-vs-south-africa.html",
+  "tag": "post",
+  "tagLabel": "Full-time",
+  "comp": "World Cup 2026 · Group A",
+  "title": "Mexico vs South Africa - Post-match: prediction vs reality",
+  "summary": "Mexico 2-0 in a chaotic World Cup opener — three red cards, a 2010 rematch, and Raul Jimenez's first ever World Cup goal. Quinones punished a Sithole error after 9 minutes, Jimenez headed in the second, and the match descended into chaos from there.",
+  "chips": ["Mexico", "South Africa", "Quinones", "Jimenez", "Sithole"],
+  "date": "11 Jun 2026",
+  "readTime": 10,
+  "predicted": "Predicted Mexico win ✓",
+  "correct": true
+}
 ]
