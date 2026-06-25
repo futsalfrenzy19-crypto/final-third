@@ -1,0 +1,28 @@
+[
+  {
+    "file": "posts/morocco-vs-haiti.html",
+    "tag": "post",
+    "tagLabel": "Full-time",
+    "comp": "World Cup 2026 · Group H",
+    "title": "Morocco vs Haiti - Post-match: prediction vs reality",
+    "summary": "Add your match summary here.",
+    "chips": ["Morocco", "Haiti"],
+    "date": "25 Jun 2026",
+    "readTime": 8,
+    "predicted": "Predicted result ✓",
+    "correct": true
+  },
+  {
+    "file": "posts/scotland-vs-brazil.html",
+    "tag": "post",
+    "tagLabel": "Full-time",
+    "comp": "World Cup 2026 · Group C",
+    "title": "Scotland vs Brazil - Post-match: prediction vs reality",
+    "summary": "Brazil 3-0, exactly as the pre-match read suggested. Vinicius Jr brace, Cunha on top, Guimaraes with two assists. Scotland's flat back four problem flagged before kickoff was exposed inside the first minute.",
+    "chips": ["Scotland", "Brazil", "Vinicius Jr", "Cunha"],
+    "date": "24 Jun 2026",
+    "readTime": 8,
+    "predicted": "Predicted 2-0, actual 3-0 ✓",
+    "correct": true
+  }
+]
