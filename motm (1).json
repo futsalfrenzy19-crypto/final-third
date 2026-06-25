@@ -1,0 +1,20 @@
+[
+  {"player": "Antoine Semenyo", "team": "Ghana", "match": "Ghana vs Panama"},
+  {"player": "Harry Kane", "team": "England", "match": "England vs Croatia"},
+  {"player": "Joao Neves", "team": "Portugal", "match": "Portugal vs Congo DR"},
+  {"player": "Nestory Irankunda", "team": "Australia", "match": "Australia vs Turkiye"},
+  {"player": "Achraf Hakimi", "team": "Morocco", "match": "Morocco vs Haiti"},
+  {"player": "John McGinn", "team": "Scotland", "match": "Scotland vs Haiti"},
+  {"player": "Johan Manzambi", "team": "Switzerland", "match": "Switzerland vs Bosnia-Herzegovina"},
+  {"player": "Jonathan David", "team": "Canada", "match": "Canada vs Qatar"},
+  {"player": "Mahmoud Abunada", "team": "Qatar", "match": "Qatar vs Switzerland"},
+  {"player": "Hwang In-beom", "team": "South Korea", "match": "South Korea vs Czech Republic"},
+  {"player": "Julian Quinones", "team": "Mexico", "match": "Mexico vs South Africa"},
+  {"player": "Folarin Balogun", "team": "USA", "match": "USA vs Australia"},
+  {"player": "Folarin Balogun", "team": "USA", "match": "USA vs Paraguay"},
+  {"player": "Vinicius Junior", "team": "Brazil", "match": "Brazil vs Haiti"},
+  {"player": "Vinicius Junior", "team": "Brazil", "match": "Brazil vs Morocco"},
+  {"player": "Vinicius Junior", "team": "Brazil", "match": "Brazil vs Scotland"},
+  {"player": "Lionel Messi", "team": "Argentina", "match": "Argentina vs Austria"},
+  {"player": "Lionel Messi", "team": "Argentina", "match": "Argentina vs Algeria"}
+]
