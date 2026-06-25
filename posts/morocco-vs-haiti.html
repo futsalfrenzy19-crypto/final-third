@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Morocco vs Haiti - The Final Third</title>
+<style>
+  :root{
+    --bg:#0d1117; --card:#161b22; --border:#2a2f37;
+    --green:#22c55e; --green-dim:rgba(34,197,94,0.12);
+    --red:#ef4444; --red-dim:rgba(239,68,68,0.12);
+    --amber:#f59e0b; --amber-dim:rgba(245,158,11,0.12);
+    --text:#e6edf3; --muted:#8b949e;
+  }
+  html[data-theme="light"]{
+    --bg:#f3f4f1; --card:#ffffff; --border:#d8dbd6;
+    --green:#15803d; --green-dim:rgba(21,128,61,0.1);
+    --red:#b91c1c; --red-dim:rgba(185,28,28,0.1);
+    --amber:#b45309; --amber-dim:rgba(180,83,9,0.1);
+    --text:#14171a; --muted:#5a5f56;
+  }
+  html[data-theme="light"] .stat-card,
+  html[data-theme="light"] .callout{ box-shadow:0 1px 2px rgba(0,0,0,0.04), 0 4px 14px rgba(0,0,0,0.05); }
+  html[data-theme="light"] .theme-toggle{ box-shadow:0 1px 2px rgba(0,0,0,0.05); }
+  body{transition:background .15s, color .15s;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px 60px;}
+  header{padding:24px 0;}
+  .logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;text-decoration:none;color:var(--muted);}
+  .logo .icon{width:24px;height:24px;background:var(--green);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;}
+
+  .title-block{margin-bottom:24px;}
+  .comp-tag{color:var(--green);font-weight:700;font-size:12.5px;text-transform:uppercase;letter-spacing:.4px;margin-bottom:10px;}
+  h1{font-size:34px;margin-bottom:8px;}
+  .venue{color:var(--muted);font-size:14px;margin-bottom:14px;}
+  .ft-badge{display:inline-flex;align-items:center;gap:6px;background:var(--amber-dim);color:var(--amber);font-weight:700;font-size:13px;padding:6px 12px;border-radius:6px;}
+
+  .callout{background:var(--green-dim);border:1px solid rgba(34,197,94,0.3);border-radius:8px;padding:12px 16px;font-size:13.5px;color:#86efac;margin-bottom:30px;}
+
+  .section{margin-bottom:34px;}
+  .section-head{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--green);margin-bottom:14px;border-bottom:1px solid var(--border);padding-bottom:8px;}
+
+  .twocol{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  @media (max-width:600px){.twocol{grid-template-columns:1fr;}}
+
+  img{max-width:100%;display:block;margin:0 auto 8px;border-radius:6px;}
+
+  .stat-cards{display:flex;gap:10px;margin-bottom:6px;flex-wrap:wrap;}
+  .stat-card{flex:1;min-width:120px;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 10px;text-align:center;}
+  .stat-card .label{font-size:11px;color:var(--muted);}
+  .stat-card .value{font-size:16px;font-weight:800;color:var(--green);margin-top:4px;}
+
+  p.body{font-size:15px;margin-bottom:12px;color:#cdd5dd;}
+  p.note{font-size:13px;font-style:italic;color:var(--muted);}
+  ul.watch li{font-size:14.5px;margin-bottom:9px;margin-left:18px;color:#cdd5dd;}
+
+  footer{text-align:center;padding:30px 0;color:var(--muted);font-size:13px;border-top:1px solid var(--border);margin-top:30px;}
+  .theme-toggle{background:var(--card);border:1px solid var(--border);color:var(--text);font-size:12.5px;font-weight:600;padding:6px 11px;border-radius:7px;cursor:pointer;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header style="display:flex;justify-content:space-between;align-items:center;">
+    <a class="logo" href="../index.html"><span class="icon">⚽</span> The Final Third</a>
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">☀️ Light</button>
+  </header>
+
+  <div class="title-block">
+    <div class="comp-tag">FIFA World Cup 2026 · Group C · Matchday 3</div>
+    <h1>Morocco vs Haiti</h1>
+    <div class="venue">Mercedes-Benz Stadium, Atlanta - Wed 24 June 2026, 22:00 UTC</div>
+    <span class="ft-badge">FULL TIME - Morocco 4-2 Haiti</span>
+  </div>
+
+  <div class="callout">Morocco finish Group C in second place on goal difference behind Brazil. Full post-match breakdown below, with a sequence diagram for every goal.</div>
+
+  <div class="section">
+    <div class="section-head">📋 Result Summary</div>
+    <div class="stat-cards">
+      <div class="stat-card"><div class="label">Final score</div><div class="value">MAR 4-2 HAI</div></div>
+      <div class="stat-card"><div class="label">Morocco scorers</div><div class="value">Hakimi, Saibari, Rahimi, Yassine</div></div>
+      <div class="stat-card"><div class="label">Haiti scorers</div><div class="value">Bounou (OG), Isidor</div></div>
+    </div>
+    <p class="body">A genuinely chaotic first half settled into a comfortable Morocco win. Haiti led twice in the opening 45 minutes before Morocco pulled level both times, then took control after the break to seal a 4-2 win that was more comfortable than the scoreline suggests, given Haiti had already been mathematically eliminated coming in.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-head">🏆 Final Group C Standings</div>
+    <div class="stat-cards">
+      <div class="stat-card"><div class="label">1. Brazil</div><div class="value">7pts (+6)</div></div>
+      <div class="stat-card"><div class="label">2. Morocco</div><div class="value">7pts (+3)</div></div>
+      <div class="stat-card"><div class="label">3. Scotland</div><div class="value">3pts (-3)</div></div>
+      <div class="stat-card"><div class="label">4. Haiti</div><div class="value">Out</div></div>
+    </div>
+    <p class="body">Morocco finish second on goal difference behind Brazil's simultaneous 3-0 win over Scotland in Miami. Morocco advance to face the Group F winner in the Round of 32 (Guadalajara, June 29). Haiti exit without a win, draw, or point - eliminated before this match even kicked off.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-head">🧩 Confirmed Formations Used</div>
+    <div class="twocol">
+      <div class="col"><img src="../images/morocco_formation.png" alt="Morocco formation"></div>
+      <div class="col"><img src="../images/haiti_formation.png" alt="Haiti formation"></div>
+    </div>
+    <p class="note">Morocco (4-2-3-1): Bono (Bounou); Hakimi, Diop, Riad, Mazraoui; El Aynaoui, Bouaddi; Diaz, El Khannouss, Ounahi; Saibari. Haiti (4-4-2): Placide; Duverne, Ade, Delcroix, Experience; Casimir, Bellegarde, Jean Jacques, Providence; Isidor, Lenny Joseph.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-head">🔍 Tactical Review</div>
+    <p class="body">Morocco's 4-2-3-1 looked exactly as it has all tournament - Hakimi and Mazraoui both pushing on from full-back to overload the wide areas, with El Aynaoui and Bouaddi screening a back four that, on this evidence, is still error-prone under direct pressure. Saibari as the lone striker dropped into pockets between Haiti's lines all night, exactly how he scored Morocco's equalizer.</p>
+    <p class="body">Haiti's 4-4-2 was set up to be compact and direct rather than dominate the ball. For a team with nothing to play for but pride, the approach mostly worked in patches - both goals came from genuine quality rather than fortunate scraps. The problem was sustaining that level defensively across 90 minutes against more individual quality.</p>
+    <p class="body" style="font-weight:700;">The key tactical moment: Morocco's response to going behind twice. Rather than panic, they won the ball back high up the pitch on both occasions and scored within minutes of conceding - composure that matters heading into the knockout stage.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-head">⚽ Goal: Bounou own goal (Haiti 1-0, 10')</div>
+    <img src="../images/mh_goal1.png" alt="Own goal sequence">
+    <p class="body">Sustained Haitian pressure forced Morocco's goalkeeper Bounou into an error under pressure, turning the ball into his own net. An ideal start for an already-eliminated Haiti side with nothing to lose.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-head">⚽ Goal: Hakimi equalizer (1-1, 39')</div>
+    <img src="../images/mh_goal2.png" alt="Hakimi goal sequence">
+    <p class="body">Morocco's captain underlined his importance going forward as much as in defence - an overlapping run from right-back finished confidently to level the match.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-head">⚽ Goal: Isidor restores Haiti's lead (1-2, 43')</div>
+    <img src="../images/mh_goal3.png" alt="Isidor goal sequence">
+    <p class="body">Wilson Isidor's sharp finish put Haiti back in front just four minutes after Morocco had levelled - a real outlet up top for a side otherwise short on attacking quality.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-head">⚽ Goal: Saibari levels again (2-2, 45+1')</div>
+    <img src="../images/mh_goal4.png" alt="Saibari goal sequence">
+    <p class="body">Morocco's most reliable source of goals all tournament dropped into a pocket between Haiti's lines and finished right on the stroke of half-time - three goals in six minutes summed up the chaos.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-head">⚽ Goal: Rahimi puts Morocco ahead (3-2, 78')</div>
+    <img src="../images/mh_goal5.png" alt="Rahimi goal sequence">
+    <p class="body">Substitute Soufiane Rahimi made an immediate impact off the bench to put Morocco ahead for the first time in the match.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-head">⚽ Goal: Yassine seals it (4-2, 89')</div>
+    <img src="../images/mh_goal6.png" alt="Yassine goal sequence">
+    <p class="body">Gessime Yassine added a fourth in injury time, putting a more comfortable gloss on the final score than the chaotic first half suggested was likely.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-head">📈 Goal Timeline</div>
+    <img src="../images/mh_timeline.png" alt="Goal timeline chart">
+  </div>
+
+  <div class="section">
+    <div class="section-head">📊 Actual Match Stats</div>
+    <img src="../images/mh_stats.png" alt="Match stats chart">
+    <p class="note">Despite trailing twice, Morocco's underlying numbers reflected a side that controlled most of the game territorially even while conceding twice on the break.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-head">⭐ Player Ratings</div>
+    <div class="twocol">
+      <div class="col">
+        <h4>Morocco</h4>
+        <p>Bono - 5.5 (costly own goal)</p>
+        <p>Hakimi - 8.0 (goal plus constant outlet)</p>
+        <p>Saibari - 8.5 (vital equalizer)</p>
+        <p>Rahimi - 7.5 (match-winning impact sub)</p>
+      </div>
+      <div class="col">
+        <h4>Haiti</h4>
+        <p>Placide - 7.0 (several saves)</p>
+        <p>Delcroix - 6.5 (organized tiring back line)</p>
+        <p>Isidor - 7.0 (sharp finish, real outlet)</p>
+        <p>Bellegarde - 6.0 (tidy without the ball)</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head">💡 Key Takeaways &amp; What's Next</div>
+    <ul class="watch">
+      <li>Morocco's defensive frailty under direct pressure (the own goal) is worth tracking into the knockouts - attacking quality has papered over it so far, but a sharper opponent may punish it more.</li>
+      <li>Saibari's tournament continues to stand out - a goal or decisive contribution in every group game, making him Morocco's most important attacking player heading into the knockouts.</li>
+      <li>Haiti leave without a point but with a small marker of pride - their first multi-goal match at a World Cup.</li>
+    </ul>
+    <p class="note">Next: Morocco face the Group F winner in the Round of 32 (Guadalajara, June 29). Haiti's World Cup ends here.</p>
+  </div>
+
+  <footer>The Final Third - built with no code, no budget, just analysis.</footer>
+</div>
+<script>
+function applyTheme(t){
+  document.documentElement.setAttribute('data-theme', t);
+  const btn = document.getElementById('themeBtn');
+  if(btn) btn.textContent = t === 'light' ? '🌙 Dark' : '☀️ Light';
+  localStorage.setItem('theme', t);
+}
+function toggleTheme(){
+  const current = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+  applyTheme(current);
+}
+(function(){
+  const saved = localStorage.getItem('theme') || 'dark';
+  applyTheme(saved);
+})();
+</script>
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "302dd873be084af1a4f5f049ac6766bf"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
