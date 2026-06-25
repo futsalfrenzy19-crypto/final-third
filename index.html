@@ -88,15 +88,15 @@
   </header>
 
   <section class="hero">
-    <h1>Pre-Match &amp; Post-Match<br>Football Analysis -<br><span class="accent">No Noise, Just Tactics.</span></h1>
+    <h1>Pre-match &amp; post-match<br>football analysis -<br><span class="accent">no noise, just tactics.</span></h1>
     <p>Breakdowns of formations, player matchups, and what actually happened - written by someone who watches too much football and owns a spreadsheet to prove it.</p>
     <a class="btn btn-solid" href="#posts">Start reading ↗</a>
     <a class="btn btn-outline" href="about.html">About me</a>
   </section>
 
   <div class="stats-row">
-    <div class="stat"><div class="num" id="analyses-num">2</div><div class="label">Analyses published</div></div>
-    <div class="stat"><div class="num green" id="accuracy-num">-</div><div class="label">Prediction accuracy</div></div>
+    <div class="stat"><div class="num" id="statCount">-</div><div class="label">Analyses published</div></div>
+    <div class="stat"><div class="num green" id="statAccuracy">-</div><div class="label">Prediction accuracy</div></div>
     <div class="stat"><div class="num">WC 2026</div><div class="label">Current focus</div></div>
   </div>
 
@@ -109,16 +109,8 @@
   </div>
 
   <h2 class="section-title" id="posts">Latest analysis</h2>
-  <div class="grid">
-    <a class="card" href="posts/scotland-vs-brazil.html">
-      <div class="meta-row"><span class="tag post">Full-time</span> <span class="comp">World Cup 2026 · Group C</span></div>
-      <h3>Scotland vs Brazil - Post-match: prediction vs reality</h3>
-      <p>Brazil 3-0, exactly as the pre-match read suggested. Vinicius Jr brace, Cunha on top, Guimaraes with two assists. Scotland's flat back four problem flagged before kickoff was exposed inside the first minute.</p>
-      <div class="chips"><span class="chip">Scotland</span><span class="chip">Brazil</span><span class="chip">Vinicius Jr</span><span class="chip">Cunha</span></div>
-      <div class="card-footer"><span>24 Jun 2026 · 8 min read</span><span class="predicted">Predicted 2-0, actual 3-0 ✓</span></div>
-    </a>
-
-    <!-- Duplicate this <a class="card"> block for every new post. Use tag classes: pre / post / tactics -->
+  <div class="grid" id="postsGrid">
+    <p style="color:var(--muted);font-size:14px;">Loading posts...</p>
   </div>
 
   <footer>The Final Third - built with no code, no budget, just analysis.</footer>
@@ -138,6 +130,45 @@ function toggleTheme(){
   const saved = localStorage.getItem('theme') || 'dark';
   applyTheme(saved);
 })();
+
+// Load posts from posts.json and build the cards automatically
+fetch('posts.json')
+  .then(r => r.json())
+  .then(posts => {
+    const grid = document.getElementById('postsGrid');
+    const statCount = document.getElementById('statCount');
+    const statAccuracy = document.getElementById('statAccuracy');
+
+    // Update analyses count
+    statCount.textContent = posts.length;
+
+    // Calculate prediction accuracy
+    const withPrediction = posts.filter(p => p.correct !== undefined);
+    if(withPrediction.length > 0){
+      const correct = withPrediction.filter(p => p.correct === true).length;
+      const pct = Math.round((correct / withPrediction.length) * 100);
+      statAccuracy.textContent = pct + '%';
+    } else {
+      statAccuracy.textContent = '-';
+    }
+
+    // Build cards
+    grid.innerHTML = posts.map(p => `
+      <a class="card" href="${p.file}">
+        <div class="meta-row"><span class="tag ${p.tag}">${p.tagLabel}</span> <span class="comp">${p.comp}</span></div>
+        <h3>${p.title}</h3>
+        <p>${p.summary}</p>
+        <div class="chips">${p.chips.map(c => `<span class="chip">${c}</span>`).join('')}</div>
+        <div class="card-footer">
+          <span>${p.date} · ${p.readTime} min read</span>
+          <span class="predicted">${p.predicted}</span>
+        </div>
+      </a>
+    `).join('');
+  })
+  .catch(() => {
+    document.getElementById('postsGrid').innerHTML = '<p style="color:var(--muted)">Could not load posts. Make sure posts.json is in your repo.</p>';
+  });
 </script>
 <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "302dd873be084af1a4f5f049ac6766bf"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
