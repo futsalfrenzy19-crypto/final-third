@@ -1,5 +1,18 @@
 [
     {
+  "file": "posts/mexico-vs-south-africa.html",
+  "tag": "post",
+  "tagLabel": "Full-time",
+  "comp": "World Cup 2026 · Group A",
+  "title": "Mexico vs South Africa - Post-match: prediction vs reality",
+  "summary": "Mexico 2-0 in a chaotic World Cup opener — three red cards, a 2010 rematch, and Raul Jimenez's first ever World Cup goal. Quinones punished a Sithole error after 9 minutes, Jimenez headed in the second, and the match descended into chaos from there.",
+  "chips": ["Mexico", "South Africa", "Quinones", "Jimenez", "Sithole"],
+  "date": "11 Jun 2026",
+  "readTime": 10,
+  "predicted": "Predicted Mexico win ✓",
+  "correct": true
+},
+    {
   "file": "posts/morocco-vs-haiti.html",
   "tag": "post",
   "tagLabel": "Full-time",
