@@ -174,8 +174,8 @@
 
   <div class="subscribe">
     <span class="sub-text">✉️ Get new analyses in your inbox</span>
-    <form onsubmit="event.preventDefault(); alert('Hook this up to a free Mailchimp or Buttondown form when ready.');">
-      <input type="email" placeholder="your@email.com" required>
+    <form action="https://buttondown.com/api/emails/embed-subscribe/thefinalthird" method="post" target="popupwindow" onsubmit="window.open('https://buttondown.com/thefinalthird','popupwindow')">
+      <input type="email" name="email" placeholder="your@email.com" required>
       <button type="submit">Subscribe</button>
     </form>
   </div>
