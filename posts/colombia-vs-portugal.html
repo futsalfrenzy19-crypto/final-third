@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Colombia vs Portugal - The Final Third</title>
+<style>
+  :root{
+    --bg:#0d1117; --card:#161b22; --border:#2a2f37;
+    --green:#22c55e; --green-dim:rgba(34,197,94,0.12);
+    --red:#ef4444; --red-dim:rgba(239,68,68,0.12);
+    --amber:#f59e0b; --amber-dim:rgba(245,158,11,0.12);
+    --text:#e6edf3; --muted:#8b949e;
+  }
+  html[data-theme="light"]{
+    --bg:#f3f4f1; --card:#ffffff; --border:#d8dbd6;
+    --green:#15803d; --green-dim:rgba(21,128,61,0.1);
+    --red:#b91c1c; --red-dim:rgba(185,28,28,0.1);
+    --amber:#b45309; --amber-dim:rgba(180,83,9,0.1);
+    --text:#14171a; --muted:#5a5f56;
+  }
+  html[data-theme="light"] .stat-card,
+  html[data-theme="light"] .callout{ box-shadow:0 1px 2px rgba(0,0,0,0.04), 0 4px 14px rgba(0,0,0,0.05); }
+  html[data-theme="light"] .theme-toggle{ box-shadow:0 1px 2px rgba(0,0,0,0.05); }
+  body{transition:background .15s, color .15s;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px 60px;}
+  header{padding:24px 0;}
+  .logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;text-decoration:none;color:var(--muted);}
+  .logo .icon{width:24px;height:24px;background:var(--green);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;}
+  .title-block{margin-bottom:24px;}
+  .comp-tag{color:var(--green);font-weight:700;font-size:12.5px;text-transform:uppercase;letter-spacing:.4px;margin-bottom:10px;}
+  h1{font-size:34px;margin-bottom:8px;}
+  .venue{color:var(--muted);font-size:14px;margin-bottom:14px;}
+  .pre-badge{display:inline-flex;align-items:center;gap:6px;background:var(--green-dim);color:var(--green);font-weight:700;font-size:13px;padding:6px 12px;border-radius:6px;}
+  .callout{background:var(--green-dim);border:1px solid rgba(34,197,94,0.3);border-radius:8px;padding:12px 16px;font-size:13.5px;color:#86efac;margin-bottom:30px;}
+  .section{margin-bottom:34px;}
+  .section-head{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--green);margin-bottom:14px;border-bottom:1px solid var(--border);padding-bottom:8px;}
+  .twocol{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  @media (max-width:600px){.twocol{grid-template-columns:1fr;}}
+  img{max-width:100%;display:block;margin:0 auto 8px;border-radius:6px;}
+  .stat-cards{display:flex;gap:10px;margin-bottom:6px;flex-wrap:wrap;}
+  .stat-card{flex:1;min-width:120px;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 10px;text-align:center;}
+  .stat-card .label{font-size:11px;color:var(--muted);}
+  .stat-card .value{font-size:16px;font-weight:800;color:var(--green);margin-top:4px;}
+  p.body{font-size:15px;margin-bottom:12px;color:#cdd5dd;}
+  p.note{font-size:13px;font-style:italic;color:var(--muted);}
+  ul.watch li{font-size:14.5px;margin-bottom:9px;margin-left:18px;color:#cdd5dd;}
+  footer{text-align:center;padding:30px 0;color:var(--muted);font-size:13px;border-top:1px solid var(--border);margin-top:30px;}
+  .theme-toggle{background:var(--card);border:1px solid var(--border);color:var(--text);font-size:12.5px;font-weight:600;padding:6px 11px;border-radius:7px;cursor:pointer;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header style="display:flex;justify-content:space-between;align-items:center;">
+    <a class="logo" href="../index.html"><span class="icon">⚽</span> The Final Third</a>
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">☀️ Light</button>
+  </header>
+
+  <div class="title-block">
+    <div class="comp-tag">FIFA World Cup 2026 · Group K · Matchday 3</div>
+    <h1>Colombia vs Portugal</h1>
+    <div class="venue">Hard Rock Stadium, Miami Gardens - Sat 27 June 2026, 23:30 UTC</div>
+    <span class="pre-badge">PRE-MATCH PREVIEW - LIVE LATER TODAY</span>
+  </div>
+
+  <div class="callout">A genuine straight shootout for top spot in Group K - Colombia top the table and need only avoid defeat, while Portugal must win outright to finish first. Ronaldo, fresh off his historic brace, takes center stage again against a side built on real attacking quality of their own.</div>
+
+  <div class="section">
+    <div class="section-head">📋 Match Context</div>
+    <p class="body">The stakes are simple: a Portugal win takes them top of Group K; anything else (a draw or Colombia win) sends Colombia through in first place. Both sides have already secured qualification regardless, but the difference between finishing first and second could shape a meaningfully easier or harder Round of 32 draw.</p>
+    <p class="body">Colombia have been the more consistent side through the group stage - two wins from two, conceding just once, with Daniel Munoz scoring twice. Portugal's campaign has been more uneven: a goalless draw with DR Congo followed by an emphatic 5-0 response against Uzbekistan, with Ronaldo's brace there making him the first player ever to score at six different World Cups.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-head">🧩 Predicted Formations</div>
+    <div class="twocol">
+      <div class="col"><img src="../images/colpor_formation.png" alt="Colombia predicted formation"></div>
+      <div class="col"><img src="../images/porcol_formation.png" alt="Portugal predicted formation"></div>
+    </div>
+    <p class="note">Colombia (4-3-3): Vargas; Munoz, Sanchez, Lucumi, Mojica; Puerta, Lerma, Arias; Rodriguez, Suarez, Diaz. Portugal (4-2-3-1): Diogo Costa; Dalot, Dias, Veiga, N. Mendes; J. Neves, Vitinha; B. Silva, B. Fernandes, Leao; Ronaldo. Neither lineup is confirmed yet - based on team news and recent selection patterns.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-head">🔍 Tactical Breakdown</div>
+    <p class="body">The central duel to watch is Luis Diaz against Portugal's right-back Diogo Dalot. Diaz has been Colombia's most dynamic attacking threat all tournament, and Dalot's attack-minded instincts can leave him exposed defensively when teams target that channel directly. If Colombia consistently get Diaz in behind Dalot, it stretches Portugal's shape and opens central space for James Rodriguez and Jhon Arias to exploit.</p>
+    <p class="body">Portugal's own counter-threat through Rafael Leao on the opposite flank means Colombia's attacking full-back Daniel Munoz will need to balance his attacking instincts with real defensive discipline - get caught too far upfield and Portugal have a direct route in behind via Leao's pace.</p>
+    <p class="body" style="font-weight:700;">Key tactical question: can Portugal's midfield trio of Neves, Vitinha, and Bruno Fernandes control the tempo against a Colombia engine room (Puerta, Lerma, Arias) that's shown real industry and discipline through two clean defensive performances so far.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-head">⭐ Players to Watch</div>
+    <ul class="watch">
+      <li><strong>Cristiano Ronaldo (Portugal)</strong> - fresh off his historic six-World-Cups goal and a brace against Uzbekistan, all eyes are back on him against a far tougher opponent than the Uzbeks.</li>
+      <li><strong>Luis Diaz (Colombia)</strong> - Colombia's most dynamic threat all tournament, the central figure in any route through Portugal's right side.</li>
+      <li><strong>James Rodriguez (Colombia)</strong> - the experienced creative hub who could exploit central space if Diaz drags Dalot out of position.</li>
+      <li><strong>Joao Cancelo (Portugal, if selected)</strong> - assisted Ronaldo's opener against Uzbekistan; his attacking output from right-back is a real weapon when he plays.</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <div class="section-head">🔄 Bench Impact</div>
+    <p class="body">Portugal have real attacking depth on the bench regardless of who starts - Pedro Neto's place looks in jeopardy after Leao's impressive cameo last time out, meaning whichever of the two doesn't start could be a genuine second-half difference-maker. Bernardo Silva returning to the side after rotation also adds another senior option.</p>
+    <p class="body">Colombia's bench options (Cucho Hernandez among them) have already shown impact this tournament, having combined for a goal in the win over Uzbekistan earlier in the group stage.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-head">📊 Projected Match Stats</div>
+    <img src="../images/colpor_stats.png" alt="Projected stats chart">
+    <p class="note">Modelled from current tournament form on both sides - a genuinely close projection reflecting two well-matched, in-form teams, not a guarantee.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-head">🎯 Prediction</div>
+    <div class="stat-cards">
+      <div class="stat-card"><div class="label">Predicted score</div><div class="value">COL 1-1 POR</div></div>
+      <div class="stat-card"><div class="label">Colombia win</div><div class="value">28%</div></div>
+      <div class="stat-card"><div class="label">Draw</div><div class="value">32%</div></div>
+      <div class="stat-card"><div class="label">Portugal win</div><div class="value">40%</div></div>
+    </div>
+    <p class="body">Portugal's superior individual quality in the final third, especially with Ronaldo in this kind of form, gives them the edge to find a winner - but Colombia's defensive solidity (conceding just once in two games) and genuine attacking threat through Diaz make a draw a very real possibility, which would be enough to send Colombia through top regardless.</p>
+    <p class="body">Most likely scorers: Ronaldo or Leao for Portugal; Diaz or Suarez for Colombia. A result either way feels more likely than a comfortable margin in either direction given how evenly matched the underlying quality is.</p>
+    <p class="note">Statistical/tactical projection, not a certainty - this document will update with confirmed lineups and live events as the match approaches and unfolds.</p>
+  </div>
+
+  <footer>The Final Third - built with no code, no budget, just analysis.</footer>
+</div>
+<script>
+function applyTheme(t){
+  document.documentElement.setAttribute('data-theme', t);
+  const btn = document.getElementById('themeBtn');
+  if(btn) btn.textContent = t === 'light' ? '🌙 Dark' : '☀️ Light';
+  localStorage.setItem('theme', t);
+}
+function toggleTheme(){
+  const current = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+  applyTheme(current);
+}
+(function(){
+  const saved = localStorage.getItem('theme') || 'dark';
+  applyTheme(saved);
+})();
+</script>
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "302dd873be084af1a4f5f049ac6766bf"}'></script><!-- End Cloudflare Web Analytics -->
+
+<div style="max-width:760px;margin:0 auto;padding:0 24px 40px;">
+  <div style="border-top:1px solid #2a2f37;padding-top:30px;margin-top:10px;">
+    <p style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#8b949e;margin-bottom:16px;">💬 Reactions &amp; Comments</p>
+    <script src="https://giscus.app/client.js"
+      data-repo="futsalfrenzy19-crypto/final-third"
+      data-repo-id="R_kgDOTEYoRg"
+      data-category="Announcements"
+      data-category-id="DIC_kwDOTEYoRs4C_5pZ"
+      data-mapping="pathname"
+      data-strict="0"
+      data-reactions-enabled="1"
+      data-emit-metadata="0"
+      data-input-position="bottom"
+      data-theme="transparent_dark"
+      data-lang="en"
+      crossorigin="anonymous"
+      async>
+    </script>
+  </div>
+</div>
+</body>
+</html>

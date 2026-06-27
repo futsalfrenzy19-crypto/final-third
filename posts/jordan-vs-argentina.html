@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jordan vs Argentina - The Final Third</title>
+<style>
+  :root{
+    --bg:#0d1117; --card:#161b22; --border:#2a2f37;
+    --green:#22c55e; --green-dim:rgba(34,197,94,0.12);
+    --red:#ef4444; --red-dim:rgba(239,68,68,0.12);
+    --amber:#f59e0b; --amber-dim:rgba(245,158,11,0.12);
+    --text:#e6edf3; --muted:#8b949e;
+  }
+  html[data-theme="light"]{
+    --bg:#f3f4f1; --card:#ffffff; --border:#d8dbd6;
+    --green:#15803d; --green-dim:rgba(21,128,61,0.1);
+    --red:#b91c1c; --red-dim:rgba(185,28,28,0.1);
+    --amber:#b45309; --amber-dim:rgba(180,83,9,0.1);
+    --text:#14171a; --muted:#5a5f56;
+  }
+  html[data-theme="light"] .stat-card,
+  html[data-theme="light"] .callout{ box-shadow:0 1px 2px rgba(0,0,0,0.04), 0 4px 14px rgba(0,0,0,0.05); }
+  html[data-theme="light"] .theme-toggle{ box-shadow:0 1px 2px rgba(0,0,0,0.05); }
+  body{transition:background .15s, color .15s;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px 60px;}
+  header{padding:24px 0;}
+  .logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;text-decoration:none;color:var(--muted);}
+  .logo .icon{width:24px;height:24px;background:var(--green);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;}
+  .title-block{margin-bottom:24px;}
+  .comp-tag{color:var(--green);font-weight:700;font-size:12.5px;text-transform:uppercase;letter-spacing:.4px;margin-bottom:10px;}
+  h1{font-size:34px;margin-bottom:8px;}
+  .venue{color:var(--muted);font-size:14px;margin-bottom:14px;}
+  .pre-badge{display:inline-flex;align-items:center;gap:6px;background:var(--green-dim);color:var(--green);font-weight:700;font-size:13px;padding:6px 12px;border-radius:6px;}
+  .callout{background:var(--green-dim);border:1px solid rgba(34,197,94,0.3);border-radius:8px;padding:12px 16px;font-size:13.5px;color:#86efac;margin-bottom:30px;}
+  .section{margin-bottom:34px;}
+  .section-head{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--green);margin-bottom:14px;border-bottom:1px solid var(--border);padding-bottom:8px;}
+  .twocol{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  @media (max-width:600px){.twocol{grid-template-columns:1fr;}}
+  img{max-width:100%;display:block;margin:0 auto 8px;border-radius:6px;}
+  .stat-cards{display:flex;gap:10px;margin-bottom:6px;flex-wrap:wrap;}
+  .stat-card{flex:1;min-width:120px;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 10px;text-align:center;}
+  .stat-card .label{font-size:11px;color:var(--muted);}
+  .stat-card .value{font-size:16px;font-weight:800;color:var(--green);margin-top:4px;}
+  p.body{font-size:15px;margin-bottom:12px;color:#cdd5dd;}
+  p.note{font-size:13px;font-style:italic;color:var(--muted);}
+  ul.watch li{font-size:14.5px;margin-bottom:9px;margin-left:18px;color:#cdd5dd;}
+  footer{text-align:center;padding:30px 0;color:var(--muted);font-size:13px;border-top:1px solid var(--border);margin-top:30px;}
+  .theme-toggle{background:var(--card);border:1px solid var(--border);color:var(--text);font-size:12.5px;font-weight:600;padding:6px 11px;border-radius:7px;cursor:pointer;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header style="display:flex;justify-content:space-between;align-items:center;">
+    <a class="logo" href="../index.html"><span class="icon">⚽</span> The Final Third</a>
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">☀️ Light</button>
+  </header>
+
+  <div class="title-block">
+    <div class="comp-tag">FIFA World Cup 2026 · Group J · Matchday 3</div>
+    <h1>Jordan vs Argentina</h1>
+    <div class="venue">AT&amp;T Stadium, Arlington (Dallas) - Sat 27 June 2026, 02:00 UTC</div>
+    <span class="pre-badge">PRE-MATCH PREVIEW - LIVE LATER TODAY</span>
+  </div>
+
+  <div class="callout">A dead rubber on paper - Argentina already top with a perfect record, Jordan already eliminated - but Messi's confirmed absence from the start gives this match a genuinely different storyline than the scoreline alone will suggest.</div>
+
+  <div class="section">
+    <div class="section-head">📋 Match Context</div>
+    <p class="body">Argentina arrive having already secured top spot in Group J with two wins from two, scoring five without conceding - a run that includes Messi's historic hat-trick against Algeria and the brace against Austria that made him the World Cup's outright all-time leading scorer with 18 goals. With qualification already locked in, this match is squarely about rotation and squad management heading into the knockouts.</p>
+    <p class="body">Jordan, making their first-ever World Cup appearance, have already been eliminated after losing to both Austria and Algeria - but they've scored in both matches and were actually leading Algeria with 25 minutes to go before conceding twice, undone largely by repeated vulnerability from corners (three of their five conceded goals have come from set pieces). A first World Cup point, or even just a goal from Ali Olwan or Musa Al-Taamari, would be a genuine point of pride from their debut tournament.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-head">🧩 Predicted Formations</div>
+    <div class="twocol">
+      <div class="col"><img src="../images/argjor_formation.png" alt="Argentina predicted formation"></div>
+      <div class="col"><img src="../images/jor_formation.png" alt="Jordan predicted formation"></div>
+    </div>
+    <p class="note">Argentina (4-3-1-2, heavily rotated): Musso; Molina, Otamendi, Senesi, Tagliafico; Lo Celso, Paredes, Barco; Paz; J. Alvarez, N. Gonzalez. Jordan (4-4-2): Abulaila; Haddad, Nasib, Al-Arab, Abu Hashish; Al-Rawabdeh, Sadeh, Al-Rashdan, Al-Taamari; Olwan, Al-Mardi. Messi confirmed to start on the bench; Cristian Romero (knee) also unlikely to feature.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-head">🔍 Tactical Breakdown</div>
+    <p class="body">Jordan's defensive vulnerability is specific and identifiable - their issue isn't general organization, it's aerial coverage at set pieces, where three of their five conceded goals have originated. Even a heavily rotated Argentina side has more than enough quality at corners and free-kicks to exploit exactly that weakness if the run of play allows for it.</p>
+    <p class="body">With Argentina's first-choice attacking trio likely rested or used sparingly, the central battle shifts to Jordan's midfield pairing (Al-Rawabdeh, Sadeh) against Argentina's alternates (Lo Celso, Paredes) - a less star-studded matchup than Messi-and-co, but still a significant quality gap given the European/South American club experience on Argentina's side of the ledger.</p>
+    <p class="body" style="font-weight:700;">Key tactical question: does a much-changed Argentina side maintain the cohesion and intensity that's defined their perfect group stage, or does extensive rotation create the kind of gaps that let Jordan find the goal (or even the result) that would define their World Cup debut.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-head">⭐ Players to Watch</div>
+    <ul class="watch">
+      <li><strong>Julian Alvarez (Argentina)</strong> - set for a recall after recent transfer news, paired with Lautaro Martinez or Nico Gonzalez up top, looking to reduce Argentina's reliance on Messi alone.</li>
+      <li><strong>Ali Olwan (Jordan)</strong> - scored Jordan's first-ever World Cup goal and is just one goal away from equaling the nation's all-time record tally of 31.</li>
+      <li><strong>Musa Al-Taamari (Jordan)</strong> - earning his 95th cap, the most recognizable name in Jordan's squad and their primary source of individual quality going forward.</li>
+      <li><strong>Lionel Messi (Argentina)</strong> - even from the bench, the plan reportedly remains for him to feature at some point, with an eye on padding his historic goal tally further.</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <div class="section-head">🔄 Bench Impact</div>
+    <p class="body">This is the most bench-relevant match of the entire group stage for Argentina - Messi himself starting among the substitutes is the headline, but Scaloni also has Lautaro Martinez, Giovani Lo Celso, and others rotating in and out depending on how the match develops. If Argentina need a goal late, introducing Messi remains the most obvious and dangerous option available.</p>
+    <p class="body">Jordan's bench options are limited by comparison, reflecting a squad still building international depth, but Mohammad Abu Zraiq and other domestic-league players provide some fresh legs if needed late on.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-head">📊 Projected Match Stats</div>
+    <img src="../images/argjor_stats.png" alt="Projected stats chart">
+    <p class="note">Modelled from current tournament form, adjusted for Argentina's expected heavy rotation - even a much-changed Argentina side should comfortably control the game by these measures.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-head">🎯 Prediction</div>
+    <div class="stat-cards">
+      <div class="stat-card"><div class="label">Predicted score</div><div class="value">JOR 1-3 ARG</div></div>
+      <div class="stat-card"><div class="label">Jordan win</div><div class="value">5%</div></div>
+      <div class="stat-card"><div class="label">Draw</div><div class="value">15%</div></div>
+      <div class="stat-card"><div class="label">Argentina win</div><div class="value">80%</div></div>
+    </div>
+    <p class="body">Even a heavily rotated Argentina side carries far too much individual quality for a Jordan team that's conceded five goals in two matches and is still searching for its first World Cup point. The specific route to goals - set pieces - is something Argentina should be able to exploit regardless of who's selected in their midfield and attack.</p>
+    <p class="body">Most likely scorers: Julian Alvarez or Nico Gonzalez for Argentina, with Messi a real threat if and when introduced from the bench. If Jordan score, Ali Olwan remains their most likely source, given his record-equaling chase and history of finding the net against tougher opposition than expected.</p>
+    <p class="note">Statistical/tactical projection, not a certainty - this document will update with confirmed lineups and live events as the match approaches and unfolds, including whether Messi actually features and for how long.</p>
+  </div>
+
+  <footer>The Final Third - built with no code, no budget, just analysis.</footer>
+</div>
+<script>
+function applyTheme(t){
+  document.documentElement.setAttribute('data-theme', t);
+  const btn = document.getElementById('themeBtn');
+  if(btn) btn.textContent = t === 'light' ? '🌙 Dark' : '☀️ Light';
+  localStorage.setItem('theme', t);
+}
+function toggleTheme(){
+  const current = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+  applyTheme(current);
+}
+(function(){
+  const saved = localStorage.getItem('theme') || 'dark';
+  applyTheme(saved);
+})();
+</script>
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "302dd873be084af1a4f5f049ac6766bf"}'></script><!-- End Cloudflare Web Analytics -->
+
+<div style="max-width:760px;margin:0 auto;padding:0 24px 40px;">
+  <div style="border-top:1px solid #2a2f37;padding-top:30px;margin-top:10px;">
+    <p style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#8b949e;margin-bottom:16px;">💬 Reactions &amp; Comments</p>
+    <script src="https://giscus.app/client.js"
+      data-repo="futsalfrenzy19-crypto/final-third"
+      data-repo-id="R_kgDOTEYoRg"
+      data-category="Announcements"
+      data-category-id="DIC_kwDOTEYoRs4C_5pZ"
+      data-mapping="pathname"
+      data-strict="0"
+      data-reactions-enabled="1"
+      data-emit-metadata="0"
+      data-input-position="bottom"
+      data-theme="transparent_dark"
+      data-lang="en"
+      crossorigin="anonymous"
+      async>
+    </script>
+  </div>
+</div>
+</body>
+</html>
