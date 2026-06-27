@@ -113,6 +113,14 @@
   .bracket-connector-pair{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;position:relative;}
   .b-date{font-size:10px;color:var(--muted);text-align:center;padding:3px 6px;background:var(--bg);border-radius:0 0 6px 6px;border-top:1px solid var(--border);}
   .ko-tbd-note{font-size:12px;color:var(--muted);text-align:center;padding:12px;font-style:italic;}
+  .b-flag-img,.predict-flag-img{width:22px;height:16px;object-fit:cover;border-radius:2px;flex-shrink:0;box-shadow:0 0 0 1px var(--border);}
+  .predict-flag-img{width:34px;height:25px;}
+  .ko-toggle-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:var(--card);border:1px solid var(--border);color:var(--text);font-weight:700;font-size:13.5px;padding:13px;border-radius:10px;cursor:pointer;transition:border-color .15s;}
+  .ko-toggle-btn:hover{border-color:var(--green);color:var(--green);}
+  .ko-toggle-arrow{transition:transform .2s;display:inline-block;}
+  .ko-toggle-btn.open .ko-toggle-arrow{transform:rotate(180deg);}
+  .knockout-collapsible{max-height:0;overflow:hidden;transition:max-height .25s ease;}
+  .knockout-collapsible.open{max-height:none;}
 
   /* ── RACES ROW ── */
   .races-row{display:none;gap:12px;margin-bottom:28px;}
@@ -264,9 +272,15 @@
       <h2 class="section-title">Knockout Stage</h2>
       <span class="post-count" id="koStageBadge">Round of 32</span>
     </div>
-    <div class="knockout-scroll">
-      <div class="bracket" id="bracketContainer">
-        <div style="color:var(--muted);font-size:13px;padding:20px;">Loading bracket...</div>
+    <button class="ko-toggle-btn" id="koToggleBtn" onclick="toggleKnockout()">
+      <span id="koToggleLabel">📊 Check Standings / Bracket</span>
+      <span class="ko-toggle-arrow">▾</span>
+    </button>
+    <div class="knockout-collapsible" id="koCollapsible">
+      <div class="knockout-scroll" style="margin-top:14px;">
+        <div class="bracket" id="bracketContainer">
+          <div style="color:var(--muted);font-size:13px;padding:20px;">Loading bracket...</div>
+        </div>
       </div>
     </div>
   </div>
@@ -309,6 +323,31 @@
 </div>
 
 <script>
+// ── Knockout collapse toggle ───────────────────────────────
+function toggleKnockout(){
+  const panel=document.getElementById('koCollapsible');
+  const btn=document.getElementById('koToggleBtn');
+  const label=document.getElementById('koToggleLabel');
+  const isOpen=panel.classList.toggle('open');
+  btn.classList.toggle('open',isOpen);
+  label.textContent=isOpen?'📊 Hide Standings / Bracket':'📊 Check Standings / Bracket';
+}
+
+// ── Flag images (fixes emoji flags not rendering on desktop) ──
+const COUNTRY_CODES={
+  'South Africa':'za','Canada':'ca','Brazil':'br','Japan':'jp','Germany':'de','Paraguay':'py',
+  'Netherlands':'nl','Morocco':'ma','Ivory Coast':'ci','Norway':'no','France':'fr','Sweden':'se',
+  'Mexico':'mx','Ecuador':'ec','England':'gb-eng','Senegal':'sn','USA':'us','United States':'us',
+  'Bosnia & Herz':'ba','Bosnia':'ba','Belgium':'be','Egypt':'eg','Spain':'es','Cape Verde':'cv',
+  'Australia':'au','Argentina':'ar','Croatia':'hr','Colombia':'co','Portugal':'pt','Uruguay':'uy',
+  'Jordan':'jo','Ghana':'gh','Scotland':'gb-sct','Haiti':'ht'
+};
+function flagImgHtml(name,cls){
+  const code=COUNTRY_CODES[name];
+  if(!code) return `<span class="${cls==='predict-flag-img'?'predict-team-flag':'b-flag'}">🏳</span>`;
+  return `<img class="${cls}" src="https://flagcdn.com/48x36/${code}.png" alt="${name} flag">`;
+}
+
 // ── Theme ──────────────────────────────────────────────────
 function applyTheme(t){
   document.documentElement.setAttribute('data-theme',t);
@@ -465,8 +504,8 @@ function initPrediction(match){
   document.getElementById('predictComp').textContent=match.comp||'';
   document.getElementById('team1name').textContent=match.team1;
   document.getElementById('team2name').textContent=match.team2;
-  document.getElementById('flag1').textContent=match.flag1||'🏳';
-  document.getElementById('flag2').textContent=match.flag2||'🏳';
+  document.getElementById('flag1').innerHTML=flagImgHtml(match.team1,'predict-flag-img');
+  document.getElementById('flag2').innerHTML=flagImgHtml(match.team2,'predict-flag-img');
   document.getElementById('dn1').disabled=true;
   document.getElementById('dn2').disabled=true;
 
@@ -576,12 +615,12 @@ function renderBracket(data){
 
       matchEl.innerHTML=`
         <div class="b-team ${!m.team1?'tbd':''} ${t1Won?'winner':''}">
-          <span class="b-flag">${m.flag1||'🏳'}</span>
+          ${flagImgHtml(m.team1,'b-flag-img')}
           <span class="b-name">${m.team1||'TBD'}</span>
           <span class="b-score ${t1Won?'winner':''}">${m.score?m.score.split('-')[0].trim():''}</span>
         </div>
         <div class="b-team ${!m.team2?'tbd':''} ${t2Won?'winner':''}">
-          <span class="b-flag">${m.flag2||'🏳'}</span>
+          ${flagImgHtml(m.team2,'b-flag-img')}
           <span class="b-name">${m.team2||'TBD'}</span>
           <span class="b-score ${t2Won?'winner':''}">${m.score?m.score.split('-')[1].trim():''}</span>
         </div>
