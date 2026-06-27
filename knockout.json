@@ -3,40 +3,31 @@
     {
       "name": "Round of 32",
       "matches": [
-        { "team1": "South Africa", "flag1": "🇿🇦", "team2": "Canada",      "flag2": "🇨🇦", "date": "28 Jun", "score": null, "winner": null },
-        { "team1": "Brazil",       "flag1": "🇧🇷", "team2": "Japan",       "flag2": "🇯🇵", "date": "29 Jun", "score": null, "winner": null },
-        { "team1": "Germany",      "flag1": "🇩🇪", "team2": "Paraguay",    "flag2": "🇵🇾", "date": "29 Jun", "score": null, "winner": null },
-        { "team1": "Netherlands",  "flag1": "🇳🇱", "team2": "Morocco",     "flag2": "🇲🇦", "date": "29 Jun", "score": null, "winner": null },
-        { "team1": "Ivory Coast",  "flag1": "🇨🇮", "team2": "Norway",      "flag2": "🇳🇴", "date": "30 Jun", "score": null, "winner": null },
-        { "team1": "France",       "flag1": "🇫🇷", "team2": "Sweden",      "flag2": "🇸🇪", "date": "30 Jun", "score": null, "winner": null },
-        { "team1": "Mexico",       "flag1": "🇲🇽", "team2": "Ecuador",     "flag2": "🇪🇨", "date": "30 Jun", "score": null, "winner": null },
-        { "team1": "England",      "flag1": "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "team2": "Senegal",     "flag2": "🇸🇳", "date": "1 Jul",  "score": null, "winner": null },
-        { "team1": "USA",          "flag1": "🇺🇸", "team2": "Bosnia & Herz","flag2": "🇧🇦", "date": "1 Jul",  "score": null, "winner": null },
-        { "team1": "Belgium",      "flag1": "🇧🇪", "team2": "Egypt",       "flag2": "🇪🇬", "date": "1 Jul",  "score": null, "winner": null },
-        { "team1": "Spain",        "flag1": "🇪🇸", "team2": "Cape Verde",  "flag2": "🇨🇻", "date": "2 Jul",  "score": null, "winner": null },
-        { "team1": "Australia",    "flag1": "🇦🇺", "team2": "TBD (Grp G 2nd)","flag2": "🏳", "date": "2 Jul",  "score": null, "winner": null },
-        { "team1": "Argentina",    "flag1": "🇦🇷", "team2": "TBD (Grp H 2nd)","flag2": "🏳", "date": "2 Jul",  "score": null, "winner": null },
-        { "team1": "TBD (Grp K 2nd)","flag1": "🏳", "team2": "Croatia",   "flag2": "🇭🇷", "date": "3 Jul",  "score": null, "winner": null },
-        { "team1": "Colombia",     "flag1": "🇨🇴", "team2": "TBD (Grp D/E/I/J/L 3rd)","flag2": "🏳", "date": "3 Jul",  "score": null, "winner": null },
-        { "team1": "TBD (Grp H winner)", "flag1": "🏳", "team2": "TBD (Grp J 2nd)", "flag2": "🏳", "date": "3 Jul",  "score": null, "winner": null }
+        { "team1": "South Africa", "flag1": "🇿🇦", "team2": "Canada",     "flag2": "🇨🇦", "date": "28 Jun", "score": null, "winner": null },
+        { "team1": "Brazil",       "flag1": "🇧🇷", "team2": "Japan",      "flag2": "🇯🇵", "date": "29 Jun", "score": null, "winner": null },
+        { "team1": "Netherlands",  "flag1": "🇳🇱", "team2": "Morocco",    "flag2": "🇲🇦", "date": "30 Jun", "score": null, "winner": null },
+        { "team1": "USA",          "flag1": "🇺🇸", "team2": "Bosnia-Herzegovina", "flag2": "🇧🇦", "date": "2 Jul", "score": null, "winner": null },
+        { "team1": "TBD", "flag1": "🏳", "team2": "TBD", "flag2": "🏳", "date": "TBD", "score": null, "winner": null },
+        { "team1": "TBD", "flag1": "🏳", "team2": "TBD", "flag2": "🏳", "date": "TBD", "score": null, "winner": null },
+        { "team1": "TBD", "flag1": "🏳", "team2": "TBD", "flag2": "🏳", "date": "TBD", "score": null, "winner": null },
+        { "team1": "TBD", "flag1": "🏳", "team2": "TBD", "flag2": "🏳", "date": "TBD", "score": null, "winner": null },
+        { "team1": "TBD", "flag1": "🏳", "team2": "TBD", "flag2": "🏳", "date": "TBD", "score": null, "winner": null },
+        { "team1": "TBD", "flag1": "🏳", "team2": "TBD", "flag2": "🏳", "date": "TBD", "score": null, "winner": null },
+        { "team1": "TBD", "flag1": "🏳", "team2": "TBD", "flag2": "🏳", "date": "TBD", "score": null, "winner": null },
+        { "team1": "TBD", "flag1": "🏳", "team2": "TBD", "flag2": "🏳", "date": "TBD", "score": null, "winner": null },
+        { "team1": "TBD", "flag1": "🏳", "team2": "TBD", "flag2": "🏳", "date": "TBD", "score": null, "winner": null },
+        { "team1": "TBD", "flag1": "🏳", "team2": "TBD", "flag2": "🏳", "date": "TBD", "score": null, "winner": null },
+        { "team1": "TBD", "flag1": "🏳", "team2": "TBD", "flag2": "🏳", "date": "TBD", "score": null, "winner": null },
+        { "team1": "TBD", "flag1": "🏳", "team2": "TBD", "flag2": "🏳", "date": "TBD", "score": null, "winner": null }
       ]
     },
     {
       "name": "Round of 16",
       "matches": [
-        { "team1": "TBD", "flag1": "🏳", "team2": "TBD", "flag2": "🏳", "date": "5 Jul",  "score": null, "winner": null },
-        { "team1": "TBD", "flag1": "🏳", "team2": "TBD", "flag2": "🏳", "date": "5 Jul",  "score": null, "winner": null },
-        { "team1": "TBD", "flag1": "🏳", "team2": "TBD", "flag2": "🏳", "date": "6 Jul",  "score": null, "winner": null },
-        { "team1": "TBD", "flag1": "🏳", "team2": "TBD", "flag2": "🏳", "date": "6 Jul",  "score": null, "winner": null },
-        { "team1": "TBD", "flag1": "🏳", "team2": "TBD", "flag2": "🏳", "date": "7 Jul",  "score": null, "winner": null },
-        { "team1": "TBD", "flag1": "🏳", "team2": "TBD", "flag2": "🏳", "date": "7 Jul",  "score": null, "winner": null },
-        { "team1": "TBD", "flag1": "🏳", "team2": "TBD", "flag2": "🏳", "date": "8 Jul",  "score": null, "winner": null },
-        { "team1": "TBD", "flag1": "🏳", "team2": "TBD", "flag2": "🏳", "date": "8 Jul",  "score": null, "winner": null }
-      ]
-    },
-    {
-      "name": "Quarter-finals",
-      "matches": [
+        { "team1": "TBD", "flag1": "🏳", "team2": "TBD", "flag2": "🏳", "date": "9 Jul",  "score": null, "winner": null },
+        { "team1": "TBD", "flag1": "🏳", "team2": "TBD", "flag2": "🏳", "date": "9 Jul",  "score": null, "winner": null },
+        { "team1": "TBD", "flag1": "🏳", "team2": "TBD", "flag2": "🏳", "date": "10 Jul", "score": null, "winner": null },
+        { "team1": "TBD", "flag1": "🏳", "team2": "TBD", "flag2": "🏳", "date": "10 Jul", "score": null, "winner": null },
         { "team1": "TBD", "flag1": "🏳", "team2": "TBD", "flag2": "🏳", "date": "11 Jul", "score": null, "winner": null },
         { "team1": "TBD", "flag1": "🏳", "team2": "TBD", "flag2": "🏳", "date": "11 Jul", "score": null, "winner": null },
         { "team1": "TBD", "flag1": "🏳", "team2": "TBD", "flag2": "🏳", "date": "12 Jul", "score": null, "winner": null },
@@ -44,16 +35,25 @@
       ]
     },
     {
-      "name": "Semi-finals",
+      "name": "Quarter-finals",
       "matches": [
         { "team1": "TBD", "flag1": "🏳", "team2": "TBD", "flag2": "🏳", "date": "15 Jul", "score": null, "winner": null },
+        { "team1": "TBD", "flag1": "🏳", "team2": "TBD", "flag2": "🏳", "date": "15 Jul", "score": null, "winner": null },
+        { "team1": "TBD", "flag1": "🏳", "team2": "TBD", "flag2": "🏳", "date": "16 Jul", "score": null, "winner": null },
         { "team1": "TBD", "flag1": "🏳", "team2": "TBD", "flag2": "🏳", "date": "16 Jul", "score": null, "winner": null }
+      ]
+    },
+    {
+      "name": "Semi-finals",
+      "matches": [
+        { "team1": "TBD", "flag1": "🏳", "team2": "TBD", "flag2": "🏳", "date": "19 Jul", "score": null, "winner": null },
+        { "team1": "TBD", "flag1": "🏳", "team2": "TBD", "flag2": "🏳", "date": "20 Jul", "score": null, "winner": null }
       ]
     },
     {
       "name": "Final",
       "matches": [
-        { "team1": "TBD", "flag1": "🏳", "team2": "TBD", "flag2": "🏳", "date": "19 Jul", "score": null, "winner": null }
+        { "team1": "TBD", "flag1": "🏳", "team2": "TBD", "flag2": "🏳", "date": "23 Jul", "score": null, "winner": null }
       ]
     }
   ]
