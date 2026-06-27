@@ -208,49 +208,8 @@
     </div>
   </section>
 
-  <!-- ── PREDICTION CARD ── -->
-  <div class="predict-banner" id="predictBanner">
-    <div class="predict-top">
-      <div class="predict-label">
-        <span class="live-badge">LIVE</span>
-        <span id="predictTitle">Loading match...</span>
-      </div>
-      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-        <span class="predict-match-name" id="predictComp"></span>
-        <span class="predict-lock" id="predictLockLabel"></span>
-      </div>
-    </div>
-    <div id="predictContent">
-      <div class="predict-body">
-        <div class="predict-team">
-          <div class="predict-team-flag" id="flag1"></div>
-          <div class="predict-team-name" id="team1name"></div>
-          <div class="score-picker">
-            <button class="score-btn" id="up1" onclick="changeScore(1,1)">▲</button>
-            <div class="score-num" id="score1">0</div>
-            <button class="score-btn" id="dn1" onclick="changeScore(1,-1)">▼</button>
-          </div>
-        </div>
-        <div class="predict-vs">—</div>
-        <div class="predict-team">
-          <div class="predict-team-flag" id="flag2"></div>
-          <div class="predict-team-name" id="team2name"></div>
-          <div class="score-picker">
-            <button class="score-btn" id="up2" onclick="changeScore(2,1)">▲</button>
-            <div class="score-num" id="score2">0</div>
-            <button class="score-btn" id="dn2" onclick="changeScore(2,-1)">▼</button>
-          </div>
-        </div>
-      </div>
-      <div class="predict-actions">
-        <span class="predict-countdown" id="predictCountdown"></span>
-        <button class="predict-submit" id="predictSubmit" onclick="submitPrediction()">Lock in prediction</button>
-        <span class="predict-result" id="predictResult"></span>
-      </div>
-      <div class="predict-locked-msg" id="predictLockedMsg">⏱ Predictions locked at kickoff. Check back for the next match!</div>
-    </div>
-    <div class="predict-off" id="predictOff" style="display:none;">No match scheduled right now — check back closer to the next kickoff.</div>
-  </div>
+  <!-- ── PREDICTION CARDS ── -->
+  <div id="predictCardsContainer"></div>
 
   <div class="stats-row">
     <div class="stat"><div class="num" id="statCount">-</div><div class="label">Analyses published</div></div>
@@ -467,117 +426,180 @@ fetch('motm.json')
     document.getElementById('motmListMobile').innerHTML='<div class="sidebar-error">Could not load data</div>';
   });
 
-// ── PREDICTION CARD ────────────────────────────────────────
-let scores=[0,0];
-let predLocked=false;
+// ── PREDICTION CARDS (multi-match) ─────────────────────────
 
-function changeScore(team,delta){
-  if(predLocked) return;
-  const idx=team-1;
-  scores[idx]=Math.max(0,scores[idx]+delta);
-  document.getElementById('score'+(team)).textContent=scores[idx];
-  document.getElementById('dn'+team).disabled=scores[idx]===0;
-}
-
-function submitPrediction(){
-  if(predLocked) return;
-  const s1=scores[0], s2=scores[1];
-  const t1=document.getElementById('team1name').textContent;
-  const t2=document.getElementById('team2name').textContent;
-  predLocked=true;
-  ['up1','dn1','up2','dn2'].forEach(id=>{ const el=document.getElementById(id); if(el) el.disabled=true; });
-  document.getElementById('predictSubmit').disabled=true;
-  const res=document.getElementById('predictResult');
-  res.textContent=`✅ Locked in: ${t1} ${s1} – ${s2} ${t2}`;
-  res.style.display='inline';
-  localStorage.setItem('pred_locked','1');
-  localStorage.setItem('pred_val',JSON.stringify({s1,s2,t1,t2}));
-}
-
-function initPrediction(match){
-  if(!match){
-    document.getElementById('predictContent').style.display='none';
-    document.getElementById('predictOff').style.display='block';
-    return;
-  }
-  document.getElementById('predictTitle').textContent=match.team1+' vs '+match.team2;
-  document.getElementById('predictComp').textContent=match.comp||'';
-  document.getElementById('team1name').textContent=match.team1;
-  document.getElementById('team2name').textContent=match.team2;
-  document.getElementById('flag1').innerHTML=flagImgHtml(match.team1,'predict-flag-img');
-  document.getElementById('flag2').innerHTML=flagImgHtml(match.team2,'predict-flag-img');
-  document.getElementById('dn1').disabled=true;
-  document.getElementById('dn2').disabled=true;
-
+function buildPredictionCard(match){
+  const id=match.id;
   const now=new Date();
   const kickoff=new Date(match.kickoff);
-  const openAt=new Date(kickoff.getTime()-60*60*1000); // 1hr before
+  const openAt=new Date(kickoff.getTime()-12*60*60*1000); // opens 12h before
 
-  // Check if already locked this match
-  const savedKey='pred_match_'+match.id;
-  if(localStorage.getItem(savedKey)){
-    predLocked=true;
-    const saved=JSON.parse(localStorage.getItem(savedKey));
-    document.getElementById('score1').textContent=saved.s1;
-    document.getElementById('score2').textContent=saved.s2;
-    ['up1','dn1','up2','dn2'].forEach(id=>{ const el=document.getElementById(id); if(el) el.disabled=true; });
-    document.getElementById('predictSubmit').disabled=true;
-    const res=document.getElementById('predictResult');
-    res.textContent=`✅ Your pick: ${saved.t1} ${saved.s1} – ${saved.s2} ${saved.t2}`;
-    res.style.display='inline';
-    document.getElementById('predictLockLabel').textContent='Prediction saved';
+  // Only show card if within the active window (not yet kicked off, or just kicked off)
+  // Hide entirely if kickoff was more than 2 hours ago (match well underway)
+  if(now > new Date(kickoff.getTime()+2*60*60*1000)) return null;
+  // Hide if opening window hasn't started yet
+  if(now < openAt) return null;
+
+  const savedKey='pred_match_'+id;
+  const alreadySaved=localStorage.getItem(savedKey);
+  let cardScores=[0,0];
+  let cardLocked=false;
+
+  const isKickedOff = now >= kickoff;
+
+  // Build card HTML
+  const card=document.createElement('div');
+  card.className='predict-banner';
+  card.id='card_'+id;
+  card.style.marginBottom='16px';
+
+  const venueHtml=match.venue?`<span style="font-size:11px;color:var(--muted);">📍 ${match.venue}</span>`:'';
+
+  card.innerHTML=`
+    <div class="predict-top">
+      <div class="predict-label">
+        <span class="live-badge">${isKickedOff?'LIVE':'SOON'}</span>
+        <span>${match.team1} vs ${match.team2}</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+        <span class="predict-match-name">${match.comp||''}</span>
+        ${venueHtml}
+        <span class="predict-lock" id="lockLabel_${id}"></span>
+      </div>
+    </div>
+    <div id="content_${id}">
+      <div class="predict-body">
+        <div class="predict-team">
+          <div class="predict-team-flag">${flagImgHtml(match.team1,'predict-flag-img')}</div>
+          <div class="predict-team-name">${match.team1}</div>
+          <div class="score-picker">
+            <button class="score-btn" id="up1_${id}">▲</button>
+            <div class="score-num" id="score1_${id}">0</div>
+            <button class="score-btn" id="dn1_${id}" disabled>▼</button>
+          </div>
+        </div>
+        <div class="predict-vs">—</div>
+        <div class="predict-team">
+          <div class="predict-team-flag">${flagImgHtml(match.team2,'predict-flag-img')}</div>
+          <div class="predict-team-name">${match.team2}</div>
+          <div class="score-picker">
+            <button class="score-btn" id="up2_${id}">▲</button>
+            <div class="score-num" id="score2_${id}">0</div>
+            <button class="score-btn" id="dn2_${id}" disabled>▼</button>
+          </div>
+        </div>
+      </div>
+      <div class="predict-actions">
+        <span class="predict-countdown" id="countdown_${id}"></span>
+        <button class="predict-submit" id="submit_${id}">Lock in prediction</button>
+        <span class="predict-result" id="result_${id}" style="display:none;"></span>
+      </div>
+      <div class="predict-locked-msg" id="lockedMsg_${id}" style="display:none;">⏱ Predictions locked at kickoff.</div>
+    </div>
+  `;
+
+  // Wire up score buttons
+  const btn=n=>document.getElementById(n+'_'+id);
+  const applyScoreLock=(locked)=>{
+    cardLocked=locked;
+    ['up1','dn1','up2','dn2'].forEach(p=>{ const el=btn(p); if(el) el.disabled=locked||true; });
+    if(!locked){
+      btn('up1').disabled=false;
+      btn('up2').disabled=false;
+      btn('dn1').disabled=cardScores[0]===0;
+      btn('dn2').disabled=cardScores[1]===0;
+    }
+    btn('submit').disabled=locked;
+  };
+
+  // After card is in DOM, set up handlers
+  setTimeout(()=>{
+    const changeScore=(team,delta)=>{
+      if(cardLocked) return;
+      const idx=team-1;
+      cardScores[idx]=Math.max(0,cardScores[idx]+delta);
+      document.getElementById('score'+(team)+'_'+id).textContent=cardScores[idx];
+      btn('dn'+team).disabled=cardScores[idx]===0;
+    };
+    btn('up1').onclick=()=>changeScore(1,1);
+    btn('dn1').onclick=()=>changeScore(1,-1);
+    btn('up2').onclick=()=>changeScore(2,1);
+    btn('dn2').onclick=()=>changeScore(2,-1);
+
+    // Restore saved prediction
+    if(alreadySaved){
+      const saved=JSON.parse(alreadySaved);
+      document.getElementById('score1_'+id).textContent=saved.s1;
+      document.getElementById('score2_'+id).textContent=saved.s2;
+      applyScoreLock(true);
+      const res=btn('result');
+      res.textContent=`✅ Your pick: ${saved.t1} ${saved.s1} – ${saved.s2} ${saved.t2}`;
+      res.style.display='inline';
+      btn('lockLabel').textContent='Prediction saved';
+      return;
+    }
+
+    if(isKickedOff){
+      applyScoreLock(true);
+      btn('submit').style.display='none';
+      btn('lockedMsg').style.display='block';
+      btn('lockLabel').textContent='Predictions closed';
+    } else {
+      // Open — countdown to kickoff
+      applyScoreLock(false);
+      btn('lockLabel').textContent='Open now · locks at kickoff';
+      const tick=()=>{
+        const diff=kickoff-new Date();
+        if(diff<=0){
+          clearInterval(timer);
+          btn('countdown').textContent='';
+          applyScoreLock(true);
+          btn('submit').style.display='none';
+          btn('lockedMsg').style.display='block';
+          btn('lockLabel').textContent='Predictions closed';
+          return;
+        }
+        const h=Math.floor(diff/3600000);
+        const m=Math.floor((diff%3600000)/60000);
+        const s=Math.floor((diff%60000)/1000);
+        btn('countdown').textContent=h>0?`Kickoff in ${h}h ${m}m`:`Kickoff in ${m}m ${s}s`;
+      };
+      tick();
+      const timer=setInterval(tick,1000);
+
+      btn('submit').onclick=()=>{
+        if(cardLocked) return;
+        const s1=cardScores[0], s2=cardScores[1];
+        applyScoreLock(true);
+        const res=btn('result');
+        res.textContent=`✅ Locked in: ${match.team1} ${s1} – ${s2} ${match.team2}`;
+        res.style.display='inline';
+        localStorage.setItem(savedKey,JSON.stringify({s1,s2,t1:match.team1,t2:match.team2}));
+      };
+    }
+  },0);
+
+  return card;
+}
+
+function initPredictions(matches){
+  const container=document.getElementById('predictCardsContainer');
+  // Normalise: support both single object and array
+  const list=Array.isArray(matches)?matches:(matches?[matches]:[]);
+
+  const cards=list.map(m=>buildPredictionCard(m)).filter(Boolean);
+
+  if(cards.length===0){
+    container.innerHTML=`<div class="predict-banner"><div class="predict-off">No matches open for predictions right now — check back closer to the next kickoff.</div></div>`;
     return;
   }
-
-  if(now>=kickoff){
-    // Match has kicked off — lock
-    predLocked=true;
-    ['up1','dn1','up2','dn2'].forEach(id=>{ const el=document.getElementById(id); if(el) el.disabled=true; });
-    document.getElementById('predictSubmit').style.display='none';
-    document.getElementById('predictLockedMsg').style.display='block';
-    document.getElementById('predictLockLabel').textContent='Predictions closed';
-  } else if(now>=openAt){
-    // Window open — countdown to kickoff
-    document.getElementById('predictLockLabel').textContent='Open now · locks at kickoff';
-    const tick=()=>{
-      const diff=kickoff-new Date();
-      if(diff<=0){ clearInterval(timer); document.getElementById('predictCountdown').textContent=''; return; }
-      const m=Math.floor(diff/60000), s=Math.floor((diff%60000)/1000);
-      document.getElementById('predictCountdown').textContent=`Kickoff in ${m}m ${s}s`;
-    };
-    tick();
-    const timer=setInterval(tick,1000);
-  } else {
-    // Too early
-    const diffMs=openAt-now;
-    const hrs=Math.floor(diffMs/3600000);
-    const mins=Math.floor((diffMs%3600000)/60000);
-    document.getElementById('predictLockLabel').textContent=`Opens ${hrs}h ${mins}m before kickoff`;
-    document.getElementById('predictSubmit').disabled=true;
-    ['up1','dn1','up2','dn2'].forEach(id=>{ const el=document.getElementById(id); if(el) el.disabled=true; });
-    document.getElementById('predictCountdown').textContent='Predictions open 1 hour before kickoff';
-  }
-
-  // Override submit to save per-match
-  document.getElementById('predictSubmit').onclick=()=>{
-    if(predLocked) return;
-    const s1=scores[0], s2=scores[1];
-    const t1=document.getElementById('team1name').textContent;
-    const t2=document.getElementById('team2name').textContent;
-    predLocked=true;
-    ['up1','dn1','up2','dn2'].forEach(id=>{ const el=document.getElementById(id); if(el) el.disabled=true; });
-    document.getElementById('predictSubmit').disabled=true;
-    const res=document.getElementById('predictResult');
-    res.textContent=`✅ Locked in: ${t1} ${s1} – ${s2} ${t2}`;
-    res.style.display='inline';
-    localStorage.setItem(savedKey,JSON.stringify({s1,s2,t1,t2}));
-  };
+  cards.forEach(c=>container.appendChild(c));
 }
 
 fetch('current-match.json')
   .then(r=>r.json())
-  .then(m=>initPrediction(m))
-  .catch(()=>initPrediction(null));
+  .then(m=>initPredictions(m))
+  .catch(()=>initPredictions(null));
 
 // ── KNOCKOUT BRACKET ───────────────────────────────────────
 function renderBracket(data){

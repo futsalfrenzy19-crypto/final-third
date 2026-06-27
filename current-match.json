@@ -1,18 +1,122 @@
-{
-  "id": "col-por-2026",
-  "team1": "Colombia",
-  "team2": "Portugal",
-  "flag1": "🇨🇴",
-  "flag2": "🇵🇹",
-  "comp": "WC 2026 · Group K · MD3",
-  "kickoff": "2026-06-27T23:30:00Z"
-}
-{
-  "id": "rsa-can-r32",
-  "team1": "South Africa",
-  "team2": "Canada",
-  "flag1": "🇿🇦",
-  "flag2": "🇨🇦",
-  "comp": "WC 2026 · Round of 32",
-  "kickoff": "2026-06-29T00:00:00Z"
-}
+[
+  {
+    "id": "pan-eng-2026",
+    "team1": "Panama",
+    "team2": "England",
+    "flag1": "🇵🇦",
+    "flag2": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+    "comp": "WC 2026 · Group L · MD3",
+    "venue": "New York New Jersey Stadium",
+    "kickoff": "2026-06-27T22:00:00Z"
+  },
+  {
+    "id": "cro-gha-2026",
+    "team1": "Croatia",
+    "team2": "Ghana",
+    "flag1": "🇭🇷",
+    "flag2": "🇬🇭",
+    "comp": "WC 2026 · Group L · MD3",
+    "venue": "Philadelphia Stadium",
+    "kickoff": "2026-06-27T22:00:00Z"
+  },
+  {
+    "id": "alg-aut-2026",
+    "team1": "Algeria",
+    "team2": "Austria",
+    "flag1": "🇩🇿",
+    "flag2": "🇦🇹",
+    "comp": "WC 2026 · Group J · MD3",
+    "venue": "Kansas City Stadium",
+    "kickoff": "2026-06-27T23:30:00Z"
+  },
+  {
+    "id": "jor-arg-2026",
+    "team1": "Jordan",
+    "team2": "Argentina",
+    "flag1": "🇯🇴",
+    "flag2": "🇦🇷",
+    "comp": "WC 2026 · Group J · MD3",
+    "venue": "Dallas Stadium",
+    "kickoff": "2026-06-27T23:30:00Z"
+  },
+  {
+    "id": "col-por-2026",
+    "team1": "Colombia",
+    "team2": "Portugal",
+    "flag1": "🇨🇴",
+    "flag2": "🇵🇹",
+    "comp": "WC 2026 · Group K · MD3",
+    "venue": "Miami Stadium",
+    "kickoff": "2026-06-28T02:00:00Z"
+  },
+  {
+    "id": "cod-uzb-2026",
+    "team1": "Congo DR",
+    "team2": "Uzbekistan",
+    "flag1": "🇨🇩",
+    "flag2": "🇺🇿",
+    "comp": "WC 2026 · Group K · MD3",
+    "venue": "Atlanta Stadium",
+    "kickoff": "2026-06-28T02:00:00Z"
+  },
+  {
+    "id": "rsa-can-2026",
+    "team1": "South Africa",
+    "team2": "Canada",
+    "flag1": "🇿🇦",
+    "flag2": "🇨🇦",
+    "comp": "WC 2026 · Round of 32",
+    "venue": "Los Angeles Stadium",
+    "kickoff": "2026-06-28T20:00:00Z"
+  },
+  {
+    "id": "ger-par-2026",
+    "team1": "Germany",
+    "team2": "Paraguay",
+    "flag1": "🇩🇪",
+    "flag2": "🇵🇾",
+    "comp": "WC 2026 · Round of 32",
+    "venue": "Boston Stadium",
+    "kickoff": "2026-06-29T23:00:00Z"
+  },
+  {
+    "id": "ned-mar-2026",
+    "team1": "Netherlands",
+    "team2": "Morocco",
+    "flag1": "🇳🇱",
+    "flag2": "🇲🇦",
+    "comp": "WC 2026 · Round of 32",
+    "venue": "Estadio Monterrey",
+    "kickoff": "2026-06-30T01:00:00Z"
+  },
+  {
+    "id": "bra-jpn-2026",
+    "team1": "Brazil",
+    "team2": "Japan",
+    "flag1": "🇧🇷",
+    "flag2": "🇯🇵",
+    "comp": "WC 2026 · Round of 32",
+    "venue": "Houston Stadium",
+    "kickoff": "2026-06-30T03:00:00Z"
+  },
+  {
+    "id": "fra-swe-2026",
+    "team1": "France",
+    "team2": "Sweden",
+    "flag1": "🇫🇷",
+    "flag2": "🇸🇪",
+    "comp": "WC 2026 · Round of 32",
+    "venue": "New York New Jersey Stadium",
+    "kickoff": "2026-07-01T00:30:00Z"
+  },
+  {
+    "id": "civ-nor-2026",
+    "team1": "Côte d'Ivoire",
+    "team2": "Norway",
+    "flag1": "🇨🇮",
+    "flag2": "🇳🇴",
+    "comp": "WC 2026 · Round of 32",
+    "venue": "Dallas Stadium",
+    "kickoff": "2026-07-01T02:30:00Z"
+  }
+]
