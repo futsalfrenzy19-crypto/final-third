@@ -9,7 +9,7 @@
   "chips": ["Jordan", "Argentina", "Messi", "Alvarez", "Al-Taamari"],
   "date": "27 Jun 2026",
   "readTime": 8,
-  "predicted": "Predicted Argentina win",
+  "predicted": "Predicted Argentina win ✓",
   "correct": true
 },
 {
@@ -22,7 +22,7 @@
   "chips": ["Colombia", "Portugal", "Ronaldo", "Diaz", "James Rodriguez"],
   "date": "27 Jun 2026",
   "readTime": 9,
-  "predicted": "Predicted draw",
+  "predicted": "Predicted draw ✓",
   "correct": false
 },
 {
