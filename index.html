@@ -486,6 +486,9 @@ async function pollLiveScore(fixtureId,matchId,team1,team2){
       liveEl.innerHTML=`<span style="background:var(--border);color:var(--muted);font-size:10px;font-weight:800;padding:2px 7px;border-radius:4px;margin-right:8px;">FT</span><span style="font-size:22px;font-weight:900;color:var(--text);">${g1} – ${g2}</span>`;
       const result={s1:g1,s2:g2,t1:team1,t2:team2};
       localStorage.setItem('result_match_'+matchId,JSON.stringify(result));
+      // Auto-flip post tag to Full-time
+      localStorage.setItem('match_status_'+matchId,'post');
+      refreshPostTags();
       // Show feedback if user predicted
       const saved=localStorage.getItem('pred_match_'+matchId);
       if(saved){
