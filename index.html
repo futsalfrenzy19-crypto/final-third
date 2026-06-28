@@ -332,14 +332,25 @@ function setAccuracy(pct){
   // ── Auto post status from current-match kickoff times ──────
 let _liveMatchIds=[];
 function getPostTag(p){
+  const slug=p.file?p.file.replace('posts/','').replace('.html',''):'';
+  if(localStorage.getItem('match_status_'+slug)==='post') return 'post';
   if(_liveMatchIds.some(id=>p.file&&p.file.includes(id))) return 'live';
   if(p.status==='post') return 'post';
   return p.tag;
 }
 function getPostTagLabel(p){
+  const slug=p.file?p.file.replace('posts/','').replace('.html',''):'';
+  if(localStorage.getItem('match_status_'+slug)==='post') return 'Full-time';
   if(_liveMatchIds.some(id=>p.file&&p.file.includes(id))) return '🔴 LIVE';
   if(p.status==='post') return 'Full-time';
   return p.tagLabel;
+}
+function refreshPostTags(){
+  document.querySelectorAll('[data-post-tag]').forEach(el=>{
+    const p=JSON.parse(el.getAttribute('data-post-tag'));
+    el.className='tag '+getPostTag(p);
+    el.textContent=getPostTagLabel(p);
+  });
 }
 // ── Posts ──────────────────────────────────────────────────
 fetch('posts.json')
@@ -353,7 +364,7 @@ fetch('posts.json')
     document.getElementById('postsGrid').innerHTML=posts.map(p=>`
       <a class="card" href="${p.file}">
         <div class="card-inner">
-          <div class="meta-row"><span class="tag ${getPostTag(p)}">${getPostTagLabel(p)}</span><span class="comp">${p.comp}</span></div>
+          <div class="meta-row"><span class="tag ${getPostTag(p)}" data-post-tag='${JSON.stringify({file:p.file,status:p.status,tag:p.tag,tagLabel:p.tagLabel})}'>${getPostTagLabel(p)}</span><span class="comp">${p.comp}</span></div>
           <h3>${p.title}</h3>
           <p>${p.summary}</p>
           <div class="chips">${p.chips.map(c=>`<span class="chip">${c}</span>`).join('')}</div>
