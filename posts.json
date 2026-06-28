@@ -1,5 +1,18 @@
 [
      {
+  "file": "posts/algeria-vs-austria.html",
+  "tag": "post",
+  "tagLabel": "Full-time",
+  "comp": "World Cup 2026 · Group J",
+  "title": "Algeria vs Austria - A World Cup classic",
+  "summary": "Six goals, a stoppage-time twist, and a result that eliminated Iran from the best-third-place race entirely. Mahrez scored his first-ever World Cup goals at 35, only for substitute Sasa Kalajdzic to snatch a 61-second equalizer that sent both sides through.",
+  "chips": ["Algeria", "Austria", "Mahrez", "Kalajdzic", "Arnautovic"],
+  "date": "27 Jun 2026",
+  "readTime": 9,
+  "predicted": "Austria win ✓",
+  "correct": false
+},
+ {
   "file": "posts/jordan-vs-argentina.html",
   "tag": "post",
   "tagLabel": "Full-time",
