@@ -10,11 +10,11 @@ self.addEventListener('push', e => {
   const title = data.title || 'The Final Third';
   const options = {
     body: data.body || 'New update from The Final Third',
-    icon: data.icon || '/final-third/icon-192.png',
-    badge: '/final-third/icon-192.png',
+    icon: data.icon || '/icon-192.png',
+    badge: '/icon-192.png',
     tag: data.tag || 'tft-notification',
     renotify: true,
-    data: { url: data.url || '/final-third/' }
+    data: { url: data.url || '/' }
   };
   e.waitUntil(self.registration.showNotification(title, options));
 });
@@ -22,7 +22,7 @@ self.addEventListener('push', e => {
 // ── Notification click — open the site ──────────────────────
 self.addEventListener('notificationclick', e => {
   e.notification.close();
-  const url = e.notification.data?.url || '/final-third/';
+  const url = e.notification.data?.url || '/';
   e.waitUntil(clients.matchAll({ type: 'window' }).then(list => {
     for (const client of list) {
       if (client.url.includes('final-third') && 'focus' in client) {
@@ -42,7 +42,7 @@ self.addEventListener('periodicsync', e => {
 
 async function checkNewPost() {
   try {
-    const res = await fetch('/final-third/latest-post.json?t=' + Date.now());
+    const res = await fetch('/latest-post.json?t=' + Date.now());
     const data = await res.json();
     const cache = await caches.open(CACHE);
     const cached = await cache.match('latest-post-id');
@@ -51,9 +51,9 @@ async function checkNewPost() {
       await cache.put('latest-post-id', new Response(data.id));
       await self.registration.showNotification('New analysis: ' + data.title, {
         body: data.summary,
-        icon: '/final-third/icon-192.png',
+        icon: '/icon-192.png',
         tag: 'new-post-' + data.id,
-        data: { url: '/final-third/' + data.file }
+        data: { url: '/' + data.file }
       });
     }
   } catch(e) {}
