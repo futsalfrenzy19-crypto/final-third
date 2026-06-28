@@ -1094,7 +1094,7 @@ confettiObserver.observe(document.body,{childList:true,subtree:true});
 async function registerSW(){
   if(!('serviceWorker' in navigator)||!('PushManager' in window)) return;
   try{
-    const reg=await navigator.serviceWorker.register('/final-third/sw.js');
+    const reg=await navigator.serviceWorker.register('/sw.js');
     await navigator.serviceWorker.ready;
     setTimeout(async()=>{
       const permission=await Notification.requestPermission();
@@ -1107,7 +1107,7 @@ async function registerSW(){
         });
       }
       localStorage.setItem('push_sub',JSON.stringify(sub));
-    },4000);
+    },2000);
     if('periodicSync' in reg){
       try{ await reg.periodicSync.register('check-new-post',{minInterval:60*60*1000}); }catch(e){}
     }
@@ -1127,10 +1127,10 @@ async function sendLocalNotification(title,body,url){
   if(Notification.permission!=='granted') return;
   reg.showNotification(title,{
     body,
-    icon:'/final-third/icon-192.png',
+    icon:'/icon-192.png',
     tag:'prediction-result',
     renotify:true,
-    data:{url:url||'/final-third/'}
+    data:{url:url||'/'}
   });
 }
 
