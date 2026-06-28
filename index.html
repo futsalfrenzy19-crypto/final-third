@@ -292,7 +292,14 @@ const COUNTRY_CODES={
   'Mexico':'mx','Ecuador':'ec','England':'gb-eng','Senegal':'sn','USA':'us','United States':'us',
   'Bosnia & Herz':'ba','Bosnia':'ba','Belgium':'be','Egypt':'eg','Spain':'es','Cape Verde':'cv',
   'Australia':'au','Argentina':'ar','Croatia':'hr','Colombia':'co','Portugal':'pt','Uruguay':'uy',
-  'Jordan':'jo','Ghana':'gh','Scotland':'gb-sct','Haiti':'ht'
+  'Jordan':'jo','Ghana':'gh','Scotland':'gb-sct','Haiti':'ht',
+  'Côte d\'Ivoire':'ci','Ivory Coast':'ci','Bosnia-Herzegovina':'ba','Bosnia & Herzegovina':'ba',
+  'Congo DR':'cd','DR Congo':'cd','Uzbekistan':'uz','Algeria':'dz','Austria':'at',
+  'Panama':'pa','Switzerland':'ch','Turkey':'tr','Türkiye':'tr','Iran':'ir',
+  'Saudi Arabia':'sa','South Korea':'kr','Czechia':'cz','South Africa':'za',
+  'New Zealand':'nz','Cape Verde':'cv','Cabo Verde':'cv','Curaçao':'cw',
+  'Sweden':'se','Iraq':'iq','Senegal':'sn','Belgium':'be','Egypt':'eg',
+  'Tunisia':'tn','Japan':'jp','Sweden':'se','Bosnia & Herz':'ba'
 };
 function flagImgHtml(name,cls){
   const code=COUNTRY_CODES[name];
@@ -438,6 +445,9 @@ function buildPredictionCard(match){
   let cardScores=[0,0];
   let cardLocked=false;
 
+  if(match.result){
+      localStorage.setItem('result_match_'+id, JSON.stringify(match.result));
+    }
   const isKickedOff = now >= kickoff;
 
   // Build card HTML
@@ -526,8 +536,22 @@ function buildPredictionCard(match){
       document.getElementById('score2_'+id).textContent=saved.s2;
       applyScoreLock(true);
       const res=btn('result');
-      res.textContent=`✅ Your pick: ${saved.t1} ${saved.s1} – ${saved.s2} ${saved.t2}`;
-      res.style.display='inline';
+      const matchResult=localStorage.getItem('result_match_'+id);
+      if(matchResult){
+        const r=JSON.parse(matchResult);
+        const userPick=`${saved.t1} ${saved.s1}–${saved.s2} ${saved.t2}`;
+        const actual=`${r.t1} ${r.s1}–${r.s2} ${r.t2}`;
+        const correct=String(saved.s1)===String(r.s1)&&String(saved.s2)===String(r.s2);
+        res.innerHTML=correct
+          ? `🎉 <strong>Spot on!</strong> You predicted ${userPick} — exactly right! Keep predicting ↓`
+          : `❌ <strong>Not this time.</strong> You picked ${userPick}, actual: ${actual}. Better luck next match ↓`;
+        res.style.color=correct?'var(--green)':'var(--amber)';
+      } else {
+        res.textContent=`✅ Locked in: ${saved.t1} ${saved.s1} – ${saved.s2} ${saved.t2}`;
+      }
+      res.style.display='block';
+      res.style.marginTop='10px';
+      res.style.textAlign='center';
       btn('lockLabel').textContent='Prediction saved';
       return;
     }
