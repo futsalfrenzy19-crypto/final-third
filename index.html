@@ -332,14 +332,14 @@ function setAccuracy(pct){
   // ── Auto post status from current-match kickoff times ──────
 let _liveMatchIds=[];
 function getPostTag(p){
-  const slug=p.file?p.file.replace('posts/','').replace('.html',''):'';
+  const slug=p.matchId||'';
   if(localStorage.getItem('match_status_'+slug)==='post') return 'post';
   if(_liveMatchIds.some(id=>p.file&&p.file.includes(id))) return 'live';
   if(p.status==='post') return 'post';
   return p.tag;
 }
 function getPostTagLabel(p){
-  const slug=p.file?p.file.replace('posts/','').replace('.html',''):'';
+  const slug=p.matchId||'';
   if(localStorage.getItem('match_status_'+slug)==='post') return 'Full-time';
   if(_liveMatchIds.some(id=>p.file&&p.file.includes(id))) return '🔴 LIVE';
   if(p.status==='post') return 'Full-time';
