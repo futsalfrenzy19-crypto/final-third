@@ -428,6 +428,86 @@ fetch('motm.json')
     document.getElementById('motmListMobile').innerHTML='<div class="sidebar-error">Could not load data</div>';
   });
 
+  // ── LIVE SCORE TRACKING ────────────────────────────────────
+const API_KEY='d0745e37147e3fb48f01f0f98d771649';
+const API_BASE='https://v3.football.api-sports.io';
+let liveIntervals={};
+
+async function fetchFixtureByTeams(team1,team2,kickoff){
+  try{
+    const date=new Date(kickoff).toISOString().split('T')[0];
+    const res=await fetch(`${API_BASE}/fixtures?league=1&season=2026&date=${date}`,{headers:{'x-apisports-key':API_KEY}});
+    const data=await res.json();
+    return (data.response||[]).find(f=>{
+      const h=f.teams.home.name.toLowerCase(),a=f.teams.away.name.toLowerCase();
+      const t1=team1.toLowerCase(),t2=team2.toLowerCase();
+      return (h.includes(t1)||t1.includes(h))&&(a.includes(t2)||t2.includes(a))||
+             (h.includes(t2)||t2.includes(h))&&(a.includes(t1)||t1.includes(a));
+    })||null;
+  }catch(e){return null;}
+}
+
+async function pollLiveScore(fixtureId,matchId,team1,team2){
+  try{
+    const res=await fetch(`${API_BASE}/fixtures?id=${fixtureId}`,{headers:{'x-apisports-key':API_KEY}});
+    const data=await res.json();
+    const f=data.response?.[0]; if(!f) return;
+    const status=f.fixture.status.short;
+    const g1=f.goals.home??0, g2=f.goals.away??0;
+    const elapsed=f.fixture.status.elapsed;
+    const isLive=['1H','HT','2H','ET','BT','P'].includes(status);
+    const isFinished=['FT','AET','PEN'].includes(status);
+
+    let liveEl=document.getElementById('livescore_'+matchId);
+    if(!liveEl){
+      liveEl=document.createElement('div');
+      liveEl.id='livescore_'+matchId;
+      liveEl.style.cssText='text-align:center;padding:8px 0 4px;';
+      const body=document.getElementById('content_'+matchId);
+      if(body) body.insertBefore(liveEl,body.firstChild);
+    }
+
+    if(isLive){
+      liveEl.innerHTML=`<span style="background:var(--red);color:#fff;font-size:10px;font-weight:800;padding:2px 7px;border-radius:4px;margin-right:8px;">LIVE ${elapsed?elapsed+"'":''}</span><span style="font-size:22px;font-weight:900;color:var(--text);">${g1} – ${g2}</span>`;
+    } else if(isFinished){
+      liveEl.innerHTML=`<span style="background:var(--border);color:var(--muted);font-size:10px;font-weight:800;padding:2px 7px;border-radius:4px;margin-right:8px;">FT</span><span style="font-size:22px;font-weight:900;color:var(--text);">${g1} – ${g2}</span>`;
+      const result={s1:g1,s2:g2,t1:team1,t2:team2};
+      localStorage.setItem('result_match_'+matchId,JSON.stringify(result));
+      // Show feedback if user predicted
+      const saved=localStorage.getItem('pred_match_'+matchId);
+      if(saved){
+        const pred=JSON.parse(saved);
+        const res=document.getElementById('result_'+matchId);
+        if(res){
+          const correct=String(pred.s1)===String(g1)&&String(pred.s2)===String(g2);
+          res.innerHTML=correct
+            ? `🎉 <strong>Spot on!</strong> You predicted ${pred.t1} ${pred.s1}–${pred.s2} ${pred.t2} — exactly right! Predict the next match ↓`
+            : `❌ <strong>Not this time.</strong> You picked ${pred.t1} ${pred.s1}–${pred.s2} ${pred.t2}, actual: ${g1}–${g2}. Better luck next match ↓`;
+          res.style.cssText=`display:block;margin-top:10px;text-align:center;font-size:13px;color:${correct?'var(--green)':'var(--amber)'};`;
+        }
+      }
+      // Stop polling
+      if(liveIntervals[matchId]){ clearInterval(liveIntervals[matchId]); delete liveIntervals[matchId]; }
+    }
+  }catch(e){}
+}
+
+async function startLiveTracking(match){
+  const fixture=await fetchFixtureByTeams(match.team1,match.team2,match.kickoff);
+  if(!fixture) return;
+  const fid=fixture.fixture.id;
+  const status=fixture.fixture.status.short;
+  const isActive=['NS','1H','HT','2H','ET','BT','P'].includes(status);
+  const isFinished=['FT','AET','PEN'].includes(status);
+  if(isFinished){
+    pollLiveScore(fid,match.id,match.team1,match.team2);
+  } else if(isActive){
+    pollLiveScore(fid,match.id,match.team1,match.team2);
+    if(!liveIntervals[match.id]){
+      liveIntervals[match.id]=setInterval(()=>pollLiveScore(fid,match.id,match.team1,match.team2),60000);
+    }
+  }
+}
 // ── PREDICTION CARDS (multi-match) ─────────────────────────
 
 function buildPredictionCard(match){
@@ -557,6 +637,8 @@ function buildPredictionCard(match){
       btn('lockLabel').textContent='Prediction saved';
       return;
     }
+    // Start live score tracking for this match
+    startLiveTracking(match);
 
     if(isKickedOff){
       applyScoreLock(true);
