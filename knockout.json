@@ -46,14 +46,20 @@
     {
       "name": "Semi-finals",
       "matches": [
-        { "team1": "TBD", "flag1": "🏳", "team2": "TBD", "flag2": "🏳", "date": "19 Jul", "score": null, "winner": null },
-        { "team1": "TBD", "flag1": "🏳", "team2": "TBD", "flag2": "🏳", "date": "20 Jul", "score": null, "winner": null }
+        { "team1": "TBD", "flag1": "🏳", "team2": "TBD", "flag2": "🏳", "date": "15 Jul", "score": null, "winner": null },
+        { "team1": "TBD", "flag1": "🏳", "team2": "TBD", "flag2": "🏳", "date": "16 Jul", "score": null, "winner": null }
+      ]
+    },
+    {
+      "name": "Third Place play-off",
+      "matches": [
+        { "team1": "TBD", "flag1": "🏳", "team2": "TBD", "flag2": "🏳", "date": "19 Jul", "score": null, "winner": null }
       ]
     },
     {
       "name": "Final",
       "matches": [
-        { "team1": "TBD", "flag1": "🏳", "team2": "TBD", "flag2": "🏳", "date": "23 Jul", "score": null, "winner": null }
+        { "team1": "TBD", "flag1": "🏳", "team2": "TBD", "flag2": "🏳", "date": "20 Jul", "score": null, "winner": null }
       ]
     }
   ]
