@@ -1,29 +1,29 @@
 [
-      {
+     {
   "file": "posts/jordan-vs-argentina.html",
-  "tag": "pre",
-  "tagLabel": "Pre-match",
+  "tag": "post",
+  "tagLabel": "Full-time",
   "comp": "World Cup 2026 · Group J",
-  "title": "Jordan vs Argentina - Pre-match preview",
-  "summary": "Argentina already top with a perfect record, Jordan already eliminated — but Messi's confirmed absence from the start gives this a different storyline. Heavy rotation expected, with Julian Alvarez set for a recall and Jordan's set-piece vulnerability the obvious route to goals.",
-  "chips": ["Jordan", "Argentina", "Messi", "Alvarez", "Al-Taamari"],
+  "title": "Jordan vs Argentina - Post-match: prediction vs reality",
+  "summary": "Argentina complete a perfect group stage 1-3 without needing Messi to start - Lo Celso's free-kick and Lautaro's penalty did the early damage, before Messi came off the bench to seal it with a record-breaking free-kick of his own, his 7th straight World Cup game scoring.",
+  "chips": ["Jordan", "Argentina", "Messi", "Lo Celso", "Lautaro"],
   "date": "27 Jun 2026",
   "readTime": 8,
-  "predicted": "Predicted Argentina win ✓",
+  "predicted": "Predicted JOR 1-3 ARG - exact score ✓",
   "correct": true
 },
 {
   "file": "posts/colombia-vs-portugal.html",
-  "tag": "pre",
-  "tagLabel": "Pre-match",
+  "tag": "post",
+  "tagLabel": "Full-time",
   "comp": "World Cup 2026 · Group K",
-  "title": "Colombia vs Portugal - Pre-match preview",
-  "summary": "A straight shootout for top spot in Group K — Colombia need only avoid defeat, Portugal must win outright. Ronaldo fresh off his historic brace faces a Colombia side built on real defensive solidity and Luis Diaz's attacking threat down the left.",
-  "chips": ["Colombia", "Portugal", "Ronaldo", "Diaz", "James Rodriguez"],
+  "title": "Colombia vs Portugal - Post-match: prediction vs reality",
+  "summary": "Colombia's first-ever World Cup goalless draw secures top spot in Group K - but the real drama was a stoppage-time Davinson Sanchez header, ruled out by VAR for offside, after Diogo Costa produced a goalkeeping masterclass against 24 Colombian shots.",
+  "chips": ["Colombia", "Portugal", "Diogo Costa", "Sanchez", "Ronaldo"],
   "date": "27 Jun 2026",
   "readTime": 9,
-  "predicted": "Predicted draw ✓",
-  "correct": false
+  "predicted": "Predicted draw - outcome correct ✓",
+  "correct": true
 },
 {
   "file": "posts/uruguay-vs-spain.html",
