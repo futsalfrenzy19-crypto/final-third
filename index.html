@@ -340,7 +340,7 @@ fetch('posts.json')
     document.getElementById('postsGrid').innerHTML=posts.map(p=>`
       <a class="card" href="${p.file}">
         <div class="card-inner">
-          <div class="meta-row"><span class="tag ${p.tag}">${p.tagLabel}</span><span class="comp">${p.comp}</span></div>
+          <div class="meta-row"><span class="tag ${p.status==='live'?'live':p.tag}">${p.status==='live'?'🔴 LIVE':p.status==='post'?'Full-time':p.tagLabel}</span><span class="comp">${p.comp}</span></div>
           <h3>${p.title}</h3>
           <p>${p.summary}</p>
           <div class="chips">${p.chips.map(c=>`<span class="chip">${c}</span>`).join('')}</div>
