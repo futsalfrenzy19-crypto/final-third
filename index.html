@@ -1130,6 +1130,7 @@ const confettiObserver=new MutationObserver(mutations=>{
 });
 confettiObserver.observe(document.body,{childList:true,subtree:true});
 
+  function applyLiveGlow(cardId){
   const card=document.getElementById('card_'+cardId);
   if(card) card.classList.add('live-glow');
 }
