@@ -588,7 +588,7 @@ async function pollLiveScore(fixtureId,matchId,team1,team2){
             correct
               ?`You called it — ${pred.t1} ${pred.s1}–${pred.s2} ${pred.t2}. Predict the next match!`
               :`You picked ${pred.t1} ${pred.s1}–${pred.s2} ${pred.t2}, actual: ${g1}–${g2}. Better luck next!`,
-            '/final-third/'
+            '/'
           );
         }
       }
@@ -620,13 +620,13 @@ function buildPredictionCard(match){
   const id=match.id;
   const now=new Date();
   const kickoff=new Date(match.kickoff);
-  const openAt=new Date(kickoff.getTime()-12*60*60*1000); // opens 12h before
+  const openAt=new Date(kickoff.getTime()-60*60*1000); // opens 1h before
 
   // Only show card if within the active window (not yet kicked off, or just kicked off)
   // Hide entirely if kickoff was more than 2 hours ago (match well underway)
-  if(now > new Date(kickoff.getTime()+2*60*60*1000)) return null;
+  if(now > new Date(kickoff.getTime()+24*60*60*1000)) return null;
   // Hide if opening window hasn't started yet
-  if(now < openAt) return null;
+  if(now < new Date(kickoff.getTime()-24*60*60*1000)) return null;
 
   const savedKey='pred_match_'+id;
   const alreadySaved=localStorage.getItem(savedKey);
