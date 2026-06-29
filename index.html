@@ -231,6 +231,68 @@
   .hero{position:relative;overflow:hidden;}
   @media(min-width:900px){#heroBall{display:block;}}
 
+  /* ── CUSTOM FOOTBALL CURSOR ── */
+  *{cursor:none !important;}
+  #footballCursor{
+    position:fixed;
+    width:26px;height:26px;
+    font-size:22px;line-height:26px;text-align:center;
+    pointer-events:none;
+    z-index:99999;
+    transform:translate(-50%,-50%);
+    transition:transform .08s;
+    user-select:none;
+    display:none;
+  }
+  #footballCursor.bounce{animation:cursorBounce .35s ease-out;}
+  @keyframes cursorBounce{
+    0%{transform:translate(-50%,-50%) scale(1) rotate(0deg);}
+    25%{transform:translate(-50%,-70%) scale(1.3) rotate(-20deg);}
+    50%{transform:translate(-50%,-40%) scale(0.9) rotate(10deg);}
+    75%{transform:translate(-50%,-55%) scale(1.1) rotate(-5deg);}
+    100%{transform:translate(-50%,-50%) scale(1) rotate(0deg);}
+  }
+  #cursorShadow{
+    position:fixed;
+    width:16px;height:5px;
+    background:rgba(0,0,0,0.3);
+    border-radius:50%;
+    pointer-events:none;
+    z-index:99998;
+    transform:translate(-50%,-50%);
+    transition:width .08s,opacity .08s;
+    display:none;
+    filter:blur(2px);
+  }
+  #cursorShadow.squish{animation:shadowSquish .35s ease-out;}
+  @keyframes shadowSquish{
+    0%{width:16px;opacity:0.3;}
+    25%{width:10px;opacity:0.1;}
+    50%{width:22px;opacity:0.5;}
+    75%{width:14px;opacity:0.35;}
+    100%{width:16px;opacity:0.3;}
+  }
+  /* Click ripple */
+  .click-ripple{
+    position:fixed;
+    width:40px;height:40px;
+    border-radius:50%;
+    border:2px solid var(--green);
+    pointer-events:none;
+    z-index:99998;
+    transform:translate(-50%,-50%) scale(0);
+    animation:rippleOut .5s ease-out forwards;
+  }
+  @keyframes rippleOut{
+    0%{transform:translate(-50%,-50%) scale(0);opacity:1;}
+    100%{transform:translate(-50%,-50%) scale(2.5);opacity:0;}
+  }
+  @media(hover:none),(pointer:coarse){
+    *{cursor:auto !important;}
+    #footballCursor,#cursorShadow{display:none !important;}
+  }
+  .btn{cursor:none !important;}
+
   /* ── ROLLING LOADER ── */
   #pageLoader{position:fixed;bottom:0;left:0;right:0;height:3px;background:rgba(34,197,94,0.15);z-index:9998;overflow:visible;transition:opacity .5s;}
   #pageLoader.hidden{opacity:0;pointer-events:none;}
@@ -243,6 +305,8 @@
 </style>
 </head>
 <body>
+<div id="footballCursor">⚽</div>
+<div id="cursorShadow"></div>
 <div class="wrap">
   <!-- Rolling loader -->
   <div id="pageLoader"><div id="loaderBall">⚽</div></div>
@@ -588,7 +652,7 @@ async function pollLiveScore(fixtureId,matchId,team1,team2){
             correct
               ?`You called it — ${pred.t1} ${pred.s1}–${pred.s2} ${pred.t2}. Predict the next match!`
               :`You picked ${pred.t1} ${pred.s1}–${pred.s2} ${pred.t2}, actual: ${g1}–${g2}. Better luck next!`,
-            '/'
+            '/final-third/'
           );
         }
       }
@@ -620,13 +684,13 @@ function buildPredictionCard(match){
   const id=match.id;
   const now=new Date();
   const kickoff=new Date(match.kickoff);
-  const openAt=new Date(kickoff.getTime()-60*60*1000); // opens 1h before
+  const openAt=new Date(kickoff.getTime()-48*60*60*1000); // opens 48h before
 
   // Only show card if within the active window (not yet kicked off, or just kicked off)
   // Hide entirely if kickoff was more than 2 hours ago (match well underway)
-  if(now > new Date(kickoff.getTime()+115*60*1000)) return null;
+  if(now > new Date(kickoff.getTime()+2*60*60*1000)) return null;
   // Hide if opening window hasn't started yet
-  if(now < new Date(kickoff.getTime()-24*60*60*1000)) return null;
+  if(now < openAt) return null;
 
   const savedKey='pred_match_'+id;
   const alreadySaved=localStorage.getItem(savedKey);
@@ -966,8 +1030,58 @@ const countObserver=new MutationObserver(()=>{
 });
 if(_origStatCount) countObserver.observe(_origStatCount,{childList:true});
 
-// ── LIVE GLOW ON PREDICTION CARDS ─────────────────────────
-function applyLiveGlow(cardId){
+// ── FOOTBALL CURSOR ──────────────────────────────────────
+(function(){
+  const cursor=document.getElementById('footballCursor');
+  const shadow=document.getElementById('cursorShadow');
+  if(!cursor) return;
+  if(window.matchMedia('(hover:none),(pointer:coarse)').matches) return;
+
+  cursor.style.display='block';
+  if(shadow) shadow.style.display='block';
+
+  document.addEventListener('mousemove',e=>{
+    cursor.style.left=e.clientX+'px';
+    cursor.style.top=e.clientY+'px';
+    if(shadow){
+      shadow.style.left=e.clientX+'px';
+      shadow.style.top=(e.clientY+18)+'px';
+    }
+  });
+
+  document.addEventListener('click',e=>{
+    cursor.classList.remove('bounce');
+    void cursor.offsetWidth;
+    cursor.classList.add('bounce');
+    cursor.addEventListener('animationend',()=>cursor.classList.remove('bounce'),{once:true});
+    if(shadow){
+      shadow.classList.remove('squish');
+      void shadow.offsetWidth;
+      shadow.classList.add('squish');
+      shadow.addEventListener('animationend',()=>shadow.classList.remove('squish'),{once:true});
+    }
+    const ripple=document.createElement('div');
+    ripple.className='click-ripple';
+    ripple.style.left=e.clientX+'px';
+    ripple.style.top=e.clientY+'px';
+    document.body.appendChild(ripple);
+    setTimeout(()=>ripple.remove(),500);
+  });
+
+  document.addEventListener('mouseleave',()=>{ cursor.style.opacity='0'; if(shadow) shadow.style.opacity='0'; });
+  document.addEventListener('mouseenter',()=>{ cursor.style.opacity='1'; if(shadow) shadow.style.opacity='1'; });
+})();
+
+// ── CONFETTI OBSERVER ─────────────────────────────────────
+const confettiObserver=new MutationObserver(mutations=>{
+  mutations.forEach(m=>{
+    m.addedNodes.forEach(n=>{
+      if(n.textContent&&n.textContent.includes('Spot on')) launchConfetti();
+    });
+  });
+});
+confettiObserver.observe(document.body,{childList:true,subtree:true});
+
   const card=document.getElementById('card_'+cardId);
   if(card) card.classList.add('live-glow');
 }
@@ -982,7 +1096,24 @@ const ALL_FACTS=[
    "Gerd Muller of West Germany scored 14 World Cup goals in just 13 matches across 1970 and 1974.",
    "Just Fontaine of France scored 13 goals in a single World Cup tournament in 1958 - a record that still stands today.",
    "The Jules Rimet Trophy was stolen in England before the 1966 World Cup and found by a dog named Pickles in a garden.",
-   "Italy and Brazil are the only nations to have won the World Cup on four or more separate occasions before 2026."],
+   "Italy and Brazil are the only nations to have won the World Cup on four or more separate occasions before 2026.",
+   "The 1930 World Cup had no qualification rounds - FIFA simply invited nations to participate.",
+   "Ronaldo of Brazil won the Golden Ball at the 1998 World Cup despite a mysterious seizure before the final that left him visibly unwell.",
+   "The first substitute ever used in a World Cup match was Ivanov of the Soviet Union in 1970.",
+   "Argentina were the first team to win the World Cup as hosts in 1978 under coach Cesar Luis Menotti.",
+   "Italy went 517 minutes without conceding at the 1990 World Cup on home soil before Claudio Caniggia equalised in the semi-final.",
+   "The ball used in the 1930 World Cup final was different in each half - each team brought their own.",
+   "Zinedine Zidane was sent off in the last match of his career - the 2006 World Cup final - for headbutting Marco Materazzi.",
+   "Sweden finished third in the 1994 World Cup, their best result since 1958, with Tomas Brolin as their standout player.",
+   "Colombia's Andres Escobar scored an own goal at the 1994 World Cup and was tragically shot dead days after returning home.",
+   "The World Cup has been held on five continents: South America, Europe, North America, Asia, and Africa.",
+   "The 1982 World Cup in Spain had 24 teams for the first time, with a second group stage before the semi-finals.",
+   "Bulgaria's Hristo Stoichkov shared the Golden Boot at the 1994 World Cup with Oleg Salenko, who scored five goals in one game.",
+   "El Salvador lost 10-1 to Hungary in 1982 - the heaviest defeat in World Cup history.",
+   "Goalkeeper Harald Schumacher's brutal foul on Patrick Battiston in the 1982 semi-final went unpunished and remains one of football's darkest moments.",
+   "The first World Cup broadcast on television was in 1954 in Switzerland, reaching audiences across Europe.",
+   "Peter Shilton kept goal for England at three World Cups: 1982, 1986, and 1990.",
+   "Australia's Tim Cahill scored one of the greatest World Cup volleys ever against the Netherlands in 2014."],
   // Day 2
   ["The highest scoring match in World Cup history was Austria 7-5 Switzerland in 1954, with 12 goals in 90 minutes.",
    "Miroslav Klose holds the all-time World Cup scoring record going into 2026, with 16 goals across four tournaments for Germany.",
@@ -991,7 +1122,24 @@ const ALL_FACTS=[
    "North Korea famously knocked out Italy in the 1966 World Cup group stage in one of the biggest upsets in tournament history.",
    "France won the 1998 World Cup on home soil with three of their goals coming from Zinedine Zidane headers.",
    "The penalty shootout was not introduced to the World Cup until 1978 - before that, draws in knockouts were decided by replay or coin toss.",
-   "Diego Maradona's 1986 goal against England involved two touches: an illegal handball and arguably the greatest solo goal ever scored."],
+   "Diego Maradona's 1986 goal against England involved two touches: an illegal handball and arguably the greatest solo goal ever scored.",
+   "Germany beat Brazil 7-1 in the 2014 World Cup semi-final - the biggest ever defeat for Brazil and the most shocking result in modern tournament history.",
+   "Iceland became the smallest nation ever to qualify for a World Cup when they reached Russia 2018 with a population of just 330,000.",
+   "South Africa is the only host nation to have been eliminated in the group stage, in 2010.",
+   "Ronaldo of Portugal scored his 9th World Cup goal in 2022, the most by a European player in World Cup history.",
+   "The United States women's national team has won the FIFA Women's World Cup four times, more than any other nation.",
+   "Ghana's Black Stars became the second African team to reach a World Cup quarter-final in 2010, before losing to Uruguay via a controversial handball.",
+   "Luis Suarez deliberately handled the ball on the goal line against Ghana in 2010 to deny a winner - Uruguay went through on penalties.",
+   "Oleg Salenko of Russia scored five goals in a single World Cup match against Cameroon in 1994 - still a record for one game.",
+   "The host nation has won the World Cup six times: Uruguay 1930, Italy 1934, England 1966, West Germany 1974, Argentina 1978, France 1998.",
+   "Joachim Low managed Germany for 15 years, winning the 2014 World Cup and reaching the final in 2002 as assistant coach.",
+   "Brazil's Ronaldo was the tournament's top scorer with 8 goals at the 2002 World Cup after coming back from two serious knee injuries.",
+   "Morocco became the first African nation to reach the World Cup semi-finals when they did so at Qatar 2022.",
+   "The 1994 World Cup in the USA attracted the highest average attendance of any World Cup ever - over 68,000 per game.",
+   "Senegal's 2002 squad was almost entirely made up of players based in France, reflecting the colonial football connection.",
+   "Australia qualified for the 2006 World Cup by beating Uruguay in a playoff, ending a 32-year absence from the tournament.",
+   "Carlos Valderrama of Colombia appeared at three World Cups between 1990 and 1998, his afro becoming one of football's most iconic looks.",
+   "The offside trap was used brilliantly by Italy's defence in 1990, with sweeper Franco Baresi orchestrating it to near perfection."],
   // Day 3
   ["West Germany are the only team to have appeared in three consecutive World Cup finals, from 1982 to 1990.",
    "Paolo Maldini made his World Cup debut in 1990 at age 21 and his final appearance in 2002 at age 33.",
@@ -1000,7 +1148,24 @@ const ALL_FACTS=[
    "England's 1966 World Cup winner Gordon Banks made what Pele called 'the greatest save ever' in 1970 against Brazil.",
    "The United States actually reached the semi-finals of the very first World Cup in 1930, beating Belgium and Paraguay along the way.",
    "Senegal pulled off one of the biggest World Cup upsets ever in 2002, beating defending champions France 1-0 in their opening match.",
-   "The smallest country to ever reach a World Cup final is Croatia, with a population of under 4 million in 1998."],
+   "The smallest country to ever reach a World Cup final is Croatia, with a population of under 4 million in 1998.",
+   "Japan have qualified for every World Cup since 1998, an impressive run for a nation that only turned professional in 1992.",
+   "The 2002 World Cup co-hosted by Japan and South Korea was the first held in Asia and the first with two host nations.",
+   "Nigeria reached the round of 16 in each of their first three World Cup appearances: 1994, 1998, and 2014.",
+   "Roberto Carlos' free-kick against France in 1997 is one of the most scientifically studied kicks in football due to its banana curve.",
+   "The golden goal rule - where the first goal in extra time wins - was used from 1998 to 2002 and produced several dramatic World Cup moments.",
+   "Turkey finished third at the 2002 World Cup, still the best result by a nation making just their second appearance at the tournament.",
+   "Switzerland went unbeaten in normal time at the 2006 World Cup but were eliminated without scoring in the shootout against Ukraine.",
+   "France's Kylian Mbappe became the second teenager after Pelé to score in a World Cup final when he did so in 2018.",
+   "Mexico have reached the round of 16 in seven consecutive World Cups from 1986 to 2018 without ever going further - known as 'El Quinto Partido' curse.",
+   "The 1966 World Cup in England saw the tournament's first use of substitutes in the third place playoff.",
+   "Costa Rica shocked world football at Brazil 2014 by reaching the quarter-finals, knocking out Uruguay, Italy, and England from their group.",
+   "Cameroon's Roger Milla would celebrate his goals with a dance around the corner flag that became one of the World Cup's most joyful images.",
+   "Iran beat USA 2-1 at the 1998 World Cup in one of the most politically charged matches in the tournament's history.",
+   "Esteban Cambiasso's goal for Argentina against Serbia and Montenegro in 2006 came after a 24-pass move and is considered one of the finest team goals ever.",
+   "The 2010 World Cup was the first in which goal-line technology was seriously discussed after Frank Lampard's goal was wrongly disallowed against Germany.",
+   "Saudi Arabia's 1-0 win over Argentina at the 2022 World Cup is widely considered the biggest upset in World Cup history.",
+   "Patrick Kluivert became the youngest player to score a World Cup final goal when he equalised for the Netherlands against Brazil in 1994 aged 18."],
   // Day 4
   ["A total of 48 nations compete in the 2026 World Cup, expanded from the previous format of 32.",
    "Roberto Baggio missed the decisive penalty in the 1994 World Cup final to hand Brazil their fourth title.",
@@ -1009,7 +1174,24 @@ const ALL_FACTS=[
    "Cameroon became the first African team to reach the World Cup quarter-finals in 1990, led by Roger Milla.",
    "The 2010 World Cup in South Africa was the first hosted on the African continent.",
    "Ronaldo of Brazil scored both goals in the 2002 World Cup final against Germany to claim his second title and Golden Boot.",
-   "Spain won three consecutive major tournaments: Euro 2008, World Cup 2010, and Euro 2012 - an unprecedented treble."],
+   "Spain won three consecutive major tournaments: Euro 2008, World Cup 2010, and Euro 2012 - an unprecedented treble.",
+   "The 2026 World Cup is the first to be hosted across three countries: USA, Canada, and Mexico.",
+   "Argentina's squad for the 2022 World Cup included players from 12 different European leagues.",
+   "Brazil's national football team colours were chosen after a national competition in 1954, with yellow and green reflecting the country's flag.",
+   "The World Cup's mascot tradition began in 1966 with World Cup Willie - a lion in a Union Jack kit - the first official tournament mascot.",
+   "Only eight countries have ever won the World Cup: Brazil, Germany, Italy, Argentina, France, Uruguay, England, and Spain.",
+   "Lionel Messi finally won the World Cup in 2022 at his fifth attempt, cementing his place as the greatest player of his generation.",
+   "The record for most World Cup appearances as a player is 25 matches, held by Lothar Matthaus of Germany.",
+   "VAR was introduced to the World Cup in 2018 in Russia, immediately changing several results through retrospective decisions.",
+   "Garrincha, Brazil's right winger, never lost a match at the World Cup across three tournaments - an extraordinary record.",
+   "The 1954 World Cup in Switzerland saw the advent of tactical substitutions, fundamentally changing how managers approached the tournament.",
+   "England's 4-2 victory over West Germany in the 1966 final remains their only World Cup triumph and is replayed on British TV almost annually.",
+   "Luis Figo of Portugal won the World Player of the Year award in 2001 but never won a World Cup.",
+   "The original Jules Rimet Trophy was permanently awarded to Brazil after their third World Cup win in 1970, but was later stolen and never recovered.",
+   "Didier Drogba led Ivory Coast to three consecutive World Cups from 2006 to 2014, often carrying the team through qualification almost single-handedly.",
+   "Neymar surpassed Pele as Brazil's all-time top scorer in 2023, but Pele's World Cup record of three titles remains unmatched.",
+   "Poland's Zbigniew Boniek was nicknamed 'Beautiful Night' in Italy for his habit of producing his best performances in evening kickoffs.",
+   "The World Cup has been postponed twice due to World Wars - the tournament skipped 1942 and 1946 entirely."],
   // Day 5
   ["The vuvuzela became a global phenomenon during the 2010 World Cup in South Africa, though many players and coaches found them distracting.",
    "Argentina's 2022 World Cup victory ended a 36-year wait since their last title, driven almost entirely by Lionel Messi's brilliance.",
@@ -1018,38 +1200,89 @@ const ALL_FACTS=[
    "Hungary scored 27 goals in just 5 matches at the 1954 World Cup, the most prolific attacking display in tournament history.",
    "The 1982 World Cup in Spain featured 24 teams for the first time, expanding from the previous 16.",
    "Rivaldo of Brazil scored a stunning overhead kick goal against Turkey in 2002 that is considered one of the tournament's all-time great strikes.",
-   "Colombia's James Rodriguez scored a bicycle kick against Uruguay in 2014 that won the Puskas Award for goal of the year."],
+   "Colombia's James Rodriguez scored a bicycle kick against Uruguay in 2014 that won the Puskas Award for goal of the year.",
+   "Michel Platini of France scored 9 goals in just 5 games at the 1984 European Championship, still a record for the tournament.",
+   "Iran's Sardar Azmoun scored in the 2022 World Cup despite initially being left out of the squad due to his outspoken political views.",
+   "Lothar Matthaus lifted the World Cup as Germany captain in 1990, having also appeared in the 1982 and 1986 finals as a player.",
+   "The 2018 World Cup in Russia saw Croatia reach their first final since 1998, losing to France 4-2 in a pulsating match.",
+   "Ronaldo of Portugal played in his fifth World Cup in 2022, equalling Matthaus and Maldini's record for tournament appearances.",
+   "Thierry Henry remains France's all-time top scorer but never replicated his club form at the World Cup, finishing with just 3 tournament goals.",
+   "The 1990 World Cup in Italy was the lowest-scoring ever, with an average of just 2.21 goals per game.",
+   "Japan's players and staff famously cleaned their dressing room after each game at the 2018 and 2022 World Cups, earning global admiration.",
+   "The 2022 World Cup was the first held in winter - November and December - due to Qatar's extreme summer heat.",
+   "Mbappe's four goals in the 2022 World Cup final, including a hat-trick, made it the greatest individual final performance in the modern era.",
+   "Brazil's Ronaldinho won the FIFA World Player of the Year award twice but was controversially left out of Brazil's 2006 World Cup squad by Dunga.",
+   "Algeria went unbeaten in the 1982 World Cup group stage but were eliminated after West Germany and Austria played out a suspicious 1-0 result - the 'Disgrace of Gijon'.",
+   "The fastest hat-trick in World Cup history was scored by Laszlo Kiss of Hungary in just 7 minutes against El Salvador in 1982.",
+   "Denmark's 1986 World Cup squad featured Michael Laudrup, one of the greatest players never to win a major trophy.",
+   "The 1994 World Cup in the USA is the only one to have been decided by a penalty shootout in the final.",
+   "Pele's bicycle kick against Sweden in the 1958 final is widely regarded as the greatest goal ever scored in a World Cup final.",
+   "Nigeria's Super Eagles won the African Cup of Nations in 1994 and were considered one of the most exciting teams at that year's World Cup."],
   // Day 6
   ["Mario Gotze scored the winning goal of the 2014 World Cup final as a substitute - one of the most dramatic endings in tournament history.",
    "The 1970 World Cup is widely considered the most entertaining ever played, producing attacking football that defined a generation.",
-   "Denmark qualified for the 1992 European Championship as a late replacement and went on to win the entire tournament.",
    "The World Cup ball design changes every tournament - the 2010 Jabulani was famously criticised by goalkeepers for its unpredictable movement.",
    "Thierry Henry's handball assist against Ireland in a 2010 World Cup qualifying playoff caused an international incident.",
    "Gordon Banks' save from Pele in 1970 - diving low to his right to scoop the ball over the bar - is replayed more than almost any moment in football.",
-   "Pakistan, despite being a cricket-mad nation, qualified their women's team for the 2023 FIFA Women's World Cup.",
-   "The first ever World Cup match ended USA 3-0 Belgium in 1930 - an opening result nobody predicted."],
+   "The first ever World Cup match ended USA 3-0 Belgium in 1930 - an opening result nobody predicted.",
+   "Spain's 2010 World Cup win was built on a tiki-taka philosophy that revolutionised how the world thought about football.",
+   "Gianluigi Buffon represented Italy at four World Cups between 1998 and 2014, winning in 2006 and reaching the final twice.",
+   "The record for most red cards in a single World Cup match is three, issued during Portugal vs Netherlands in the 2006 round of 16 - known as the Battle of Nuremberg.",
+   "Peru's Teofilo Cubillas scored five goals across two World Cups and is considered one of South America's greatest players of the 1970s.",
+   "The 2006 World Cup in Germany had the highest average attendance since the USA 1994 tournament.",
+   "Fabio Cannavaro won the Ballon d'Or in 2006 after captaining Italy to World Cup glory - the last defender to win the award.",
+   "Brazil's 1970 squad is often cited as the greatest international team ever assembled, featuring Pele, Jairzinho, Rivelino, and Tostao.",
+   "Jairzinho of Brazil scored in every single match of the 1970 World Cup - six out of six games - a feat never since repeated.",
+   "Yugoslavia finished third at the inaugural 1930 World Cup and reached the semi-finals again in 1962.",
+   "The 2022 World Cup in Qatar was the first in the Middle East and sparked enormous debate about human rights and sportswashing.",
+   "Didier Deschamps is one of only three people to win the World Cup as both player and manager, alongside Zagallo and Beckenbauer.",
+   "Iran's first World Cup appearance was in 1978, where they drew with Scotland but lost to the Netherlands and Peru.",
+   "Paul Pogba produced one of the World Cup's great assists in the 2018 final, but his overall tournament career has been inconsistent.",
+   "The Netherlands have reached three World Cup finals - 1974, 1978, and 2010 - without ever winning the tournament.",
+   "Alexei Lalas became one of America's most recognisable players when he appeared at the 1994 World Cup with his distinctive red beard.",
+   "Uruguay's 1950 win over Brazil in the Maracana in front of 200,000 people is still known as the 'Maracanazo' and remains a Brazilian national trauma.",
+   "Denmark's Schmeichel kept a clean sheet against Brazil in a 1998 World Cup quarter-final that Denmark lost 3-2 in extra time.",
+   "Japan's Hidetoshi Nakata was named in the World Cup All-Star team in 1998 and went on to become Asia's first true global football superstar.",
+   "The 2018 World Cup in Russia was the last with 32 teams before the expanded 48-team format was introduced for 2026."],
   // Day 7
   ["Xavi and Iniesta combined for more passes in the 2010 World Cup than some entire national teams managed.",
-   "France's 1998 World Cup squad featured players from 11 different African nations, reflecting the diversity of their football culture.",
+   "France's 1998 World Cup squad featured players with roots from 11 different African nations, reflecting the diversity of their football culture.",
    "England's record World Cup win was 8-0 against Mexico in 1966, and they also beat the USA just four years before losing to them in 1950.",
    "The 2026 World Cup marks the first time Canada has hosted a men's World Cup since 1994.",
    "Lothar Matthaus played in 5 World Cups for West Germany and Germany between 1982 and 1998.",
    "Brazil have won the World Cup five times but have never won it on home soil - their 1950 loss to Uruguay is known as the 'Maracanazo'.",
-   "Every World Cup since 1934 has had a different winner from the host nation except for 1966 (England) and 2018 (France).",
-   "The United States' 1-0 win over England at the 1950 World Cup is considered one of the greatest upsets in sporting history."]
+   "The United States' 1-0 win over England at the 1950 World Cup is considered one of the greatest upsets in sporting history.",
+   "Iker Casillas captained Spain to their first and only World Cup title in 2010, making crucial saves throughout the tournament.",
+   "Australia's Socceroos reached the round of 16 at the 2022 World Cup, defeating Denmark in extra time before losing to Argentina.",
+   "The 2026 World Cup features 16 groups of 3 teams in the group stage before transitioning to a 32-team knockout Round of 32.",
+   "Romario of Brazil scored five goals at the 1994 World Cup and was voted the tournament's best player despite a low-profile club season before it.",
+   "Germany's Oliver Kahn was the first goalkeeper to win the Golden Ball as best player at a World Cup, in 2002.",
+   "Peru qualified for the 2018 World Cup after a 36-year absence, with qualification decided by a playoff win over New Zealand.",
+   "Sunil Chhetri of India has scored more international goals than many World Cup legends, yet India has never qualified for the tournament.",
+   "The 2022 World Cup marked the first time all six FIFA confederations had at least one nation reach the round of 16.",
+   "Eric Cantona was controversially left out of France's 1998 World Cup squad by coach Aime Jacquet, despite being one of the best players in the world.",
+   "Cameroon's 4-0 demolition of Argentina in the opening match of the 1990 World Cup is one of the greatest upsets in tournament history.",
+   "Robert Lewandowski finally scored his first World Cup goal at the 2022 tournament after failing to score at Russia 2018.",
+   "South Korea's 2002 run to the semi-finals involved wins over Spain, Italy, and Portugal - three previous World Cup winners.",
+   "Peter Schmeichel's save from Paul Ince's penalty in a 1997 qualifier helped Denmark reach the 1998 World Cup at England's expense.",
+   "Norway beat Brazil 2-1 at the 1998 World Cup in one of the tournament's biggest shocks, with Tore Andre Flo and Kjetil Rekdal on the scoresheet.",
+   "The World Cup expanded from 16 to 24 teams in 1982, from 24 to 32 in 1998, and from 32 to 48 in 2026.",
+   "Angel Di Maria scored one of the World Cup's great individual goals in the 2014 final against Germany before going off injured.",
+   "Japan shocked Germany and Spain at the 2022 World Cup group stage, becoming the first Asian team to top a group containing two former world champions.",
+   "Andres Iniesta's 116th-minute goal in the 2010 World Cup final is the latest ever winner in a final - scored by the man many consider Spain's greatest ever player."]
 ];
 
 function initFacts(){
   const today=new Date();
-  const dayIndex=today.getDay();
+  const tournamentStart=new Date('2026-06-11');
+  const dayIndex=Math.floor((today-tournamentStart)/(1000*60*60*24))%ALL_FACTS.length;
   const facts=ALL_FACTS[dayIndex]||ALL_FACTS[0];
   const textEl=document.getElementById('factText');
   const dotsEl=document.getElementById('factsDots');
   const dayEl=document.getElementById('factsDayLabel');
   if(!textEl) return;
 
-  const days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-  if(dayEl) dayEl.textContent=days[dayIndex]+' Facts';
+  if(dayEl) dayEl.textContent='WC Day '+(dayIndex+1)+' Facts';
 
   dotsEl.innerHTML=facts.map((_,i)=>`<div class="facts-dot${i===0?' active':''}" onclick="jumpFact(${i})"></div>`).join('');
   const dots=dotsEl.querySelectorAll('.facts-dot');
