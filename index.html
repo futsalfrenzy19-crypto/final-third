@@ -1364,14 +1364,6 @@ if(typeof pollLiveScore!=='undefined'){
   const __orig=pollLiveScore;
 }
 // We patch via MutationObserver watching for the 🎉 symbol
-const confettiObserver=new MutationObserver(mutations=>{
-  mutations.forEach(m=>{
-    m.addedNodes.forEach(n=>{
-      if(n.textContent&&n.textContent.includes('Spot on')) launchConfetti();
-    });
-  });
-});
-confettiObserver.observe(document.body,{childList:true,subtree:true});
   // ── PUSH NOTIFICATIONS ────────────────────────────────────
 async function registerSW(){
   if(!('serviceWorker' in navigator)||!('PushManager' in window)) return;
